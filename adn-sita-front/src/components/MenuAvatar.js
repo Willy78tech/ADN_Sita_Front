@@ -18,21 +18,21 @@ export function MenuAvatar() {
   const [openSubs, setOpenSubs] = React.useState(false);
   const [userConnected, setUserConnected] = React.useState(false);
 
-  React.useEffect(() => {
-    axios
-      .get("http://localhost:3000/get-users")
-      .then((user) => {
-        if (user == null) {
-          setUserConnected(false);
-        } else {
-          setUserConnected(true);
-        }
-        toast.success("Successfully toasted!");
-      })
-      .catch((error) => {
-        toast.error("This didn't work.");
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3000/get-users")
+  //     .then((user) => {
+  //       if (user == null) {
+  //         setUserConnected(false);
+  //       } else {
+  //         setUserConnected(true);
+  //       }
+  //       toast.success("Successfully toasted!");
+  //     })
+  //     .catch((error) => {
+  //       toast.error("This didn't work.");
+  //     });
+  // }, []);
 
   const handleClickOpenConnexion = () => {
     setOpen(true);
