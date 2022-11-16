@@ -1,11 +1,14 @@
 import './App.css';
-import { Connexion } from './components/Connexion';
 import { Header } from './components/Header';
+import { Main } from './components/Main';
+import toast, { Toaster } from 'react-hot-toast'
 
 function App() {
   return (
     <>
       <Header />
+      <Main />
+      <Toaster position="bottom-right"/>
     </>
   );
 }
