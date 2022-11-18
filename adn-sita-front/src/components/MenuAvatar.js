@@ -18,21 +18,7 @@ export function MenuAvatar() {
   const [openSubs, setOpenSubs] = React.useState(false);
   const [userConnected, setUserConnected] = React.useState(false);
 
-  // React.useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3000/get-users")
-  //     .then((user) => {
-  //       if (user == null) {
-  //         setUserConnected(false);
-  //       } else {
-  //         setUserConnected(true);
-  //       }
-  //       toast.success("Successfully toasted!");
-  //     })
-  //     .catch((error) => {
-  //       toast.error("This didn't work.");
-  //     });
-  // }, []);
+ 
 
   const handleClickOpenConnexion = () => {
     setOpen(true);
@@ -50,12 +36,23 @@ export function MenuAvatar() {
   const handleSubscribe = () => {
     setOpen(false);
     setOpenSubs(true);
+    axios.post("http://localhost:3000/subscribe", {
+      pseudo: "",
+      email: "",
+      quote: "",
+      password: "",
+      confirmPassword: ""
+    });
   };
 
   const handleConnexion = () => {
-    // Axios.get(page de profile)
-    // .then(user => {
-    // })
+    // route pour se connecter
+    setOpen(false);
+    setOpenSubs(false);
+    axios.post("http://localhost:3000/login", {
+      email: "",
+      password: ""
+    });
   };
 
   return (
@@ -71,7 +68,7 @@ export function MenuAvatar() {
         >
           <AccountCircle sx={{ fontSize: "8vh" }} />
         </IconButton>
-        <Dialog open={open} onClose={handleClickCloseConnexion}>
+        <Dialog open={open} onClose={handleClickCloseConnexion} >
           <DialogTitle>Connexion</DialogTitle>
           <DialogContent>
             <DialogContentText>
