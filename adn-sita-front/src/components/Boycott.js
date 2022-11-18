@@ -17,6 +17,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { format } from "date-fns";
 import { et } from "date-fns/locale";
+import { color } from "@mui/system";
 
 
 
@@ -58,7 +59,7 @@ export function Boycott({ boycott }) {
           </IconButton>
         }
         title={boycott.title}
-        subheader={formattedDate}
+        subheader={formattedDate + " by " + boycott.userId.pseudo}
         color="#ffffff"
       />
       <CardMedia
