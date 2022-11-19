@@ -8,13 +8,6 @@ export function Main() {
   const [boycotts, setBoycotts] = React.useState([]);
 
   React.useEffect(() => {
-    // fetch("http://localhost:3000/get-boycotts")
-    //   .then((res) => {
-    //     setBoycotts(res.data.boycott);
-    //   })
-    //   .catch((error) => {
-    //     toast.error("This didn't work.");
-    //   });
     axios
       .get("http://localhost:3000/get-boycotts")
       .then((res) => {

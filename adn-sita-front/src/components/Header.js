@@ -9,8 +9,10 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { MenuAvatar } from "./MenuAvatar";
-
-const Search = styled("div")(({ theme }) => ({
+import {useState, useEffect} from "react";
+import { InputSearch }  from "./InputSearch";
+import { Test } from "./Test";
+/* const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -48,9 +50,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       width: "20ch",
     },
   },
-}));
+})); */
 
 export function Header() {
+/* // afficher le user connecté
+  const [userId, setUser] = useState("");
+  useEffect(() => {
+     axios.get("http://localhost:3000//get-user/:" + userId);
+    setUserId(user);
+  }, []); */
+
   
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -66,7 +75,8 @@ export function Header() {
             >
               <MenuIcon sx={{ fontSize: "6vh", color: "#00b440" }} />
             </IconButton>
-            <Search sx={{ height: "1" }}>
+            
+            {/* <Search sx={{ height: "1" }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -75,8 +85,12 @@ export function Header() {
                 inputProps={{ "aria-label": "search" }}
                 sx={{}}
               />
-            </Search>
+            </Search> */}
+            
+            
           </Box>
+          <Test/>
+          <InputSearch />
           <Box sx={{ display: "flex", alignItems: "center", mr: "15vw" }}>
             <img src="img/logo.png" alt="Logo" height="80vh"></img>
             <Typography
@@ -92,7 +106,12 @@ export function Header() {
               ADN
             </Typography>
           </Box>
-          <MenuAvatar />
+          <Box>
+          
+
+            <MenuAvatar />
+          </Box>
+          
         </Toolbar>
       </AppBar>
     </Box>
