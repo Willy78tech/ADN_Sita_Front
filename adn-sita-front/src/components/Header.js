@@ -9,9 +9,10 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { MenuAvatar } from "./MenuAvatar";
-import {useState, useEffect} from "react";
-import { InputSearch }  from "./InputSearch";
+import { useState, useEffect } from "react";
+import { InputSearch } from "./InputSearch";
 import { Test } from "./Test";
+
 /* const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -53,14 +54,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 })); */
 
 export function Header() {
-/* // afficher le user connecté
+  /* // afficher le user connecté
   const [userId, setUser] = useState("");
   useEffect(() => {
      axios.get("http://localhost:3000//get-user/:" + userId);
     setUserId(user);
   }, []); */
 
-  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: "#272727", padding: "0.5vh" }}>
@@ -75,7 +75,7 @@ export function Header() {
             >
               <MenuIcon sx={{ fontSize: "6vh", color: "#00b440" }} />
             </IconButton>
-            
+
             {/* <Search sx={{ height: "1" }}>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -86,10 +86,8 @@ export function Header() {
                 sx={{}}
               />
             </Search> */}
-            
-            
           </Box>
-          <Test/>
+          <Test />
           <InputSearch />
           <Box sx={{ display: "flex", alignItems: "center", mr: "15vw" }}>
             <img src="img/logo.png" alt="Logo" height="80vh"></img>
@@ -107,11 +105,8 @@ export function Header() {
             </Typography>
           </Box>
           <Box>
-          
-
             <MenuAvatar />
           </Box>
-          
         </Toolbar>
       </AppBar>
     </Box>

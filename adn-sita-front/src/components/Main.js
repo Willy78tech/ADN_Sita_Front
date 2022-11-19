@@ -11,7 +11,7 @@ export function Main() {
     axios
       .get("http://localhost:3000/get-boycotts")
       .then((res) => {
-        console.log(res.data.boycott);
+        // console.log(res.data.boycott);
         setBoycotts(res.data.boycott);
         toast.success("Successfully toasted!");
       })
