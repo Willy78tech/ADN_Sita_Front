@@ -13,6 +13,7 @@ export function Main() {
       .then((res) => {
         console.log(res.data.boycott);
         setBoycotts(res.data.boycott);
+        toast.success("Successfully toasted!");
       })
       .catch((error) => {
         toast.error("This didn't work.");
