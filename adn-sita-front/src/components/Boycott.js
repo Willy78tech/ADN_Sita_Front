@@ -15,6 +15,12 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import { format } from "date-fns";
+import { et } from "date-fns/locale";
+import { color } from "@mui/system";
+
+
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,6 +34,10 @@ const ExpandMore = styled((props) => {
 }));
 
 export function Boycott({ boycott }) {
+  
+  const date = new Date(boycott.createdAt);
+  const formattedDate = format(date, "dd/MM/yyyy HH:mm");
+
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -39,7 +49,7 @@ export function Boycott({ boycott }) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "#00b440" }} aria-label="recipe">
-            {/* <AccountCircle  /> */}
+            {/* <AccountCircle /> */}
             {/* ! */}
           </Avatar>
         }
@@ -49,13 +59,13 @@ export function Boycott({ boycott }) {
           </IconButton>
         }
         title={boycott.title}
-        subheader={boycott.createdAt}
+        subheader={formattedDate}
         color="#ffffff"
       />
       <CardMedia
         component="img"
         height="194"
-        image={boycott.imageUrl}
+        src={"https://images.kalanso.top/" + boycott.imageUrl}         
         alt="image of the boycott"
       />
       <CardContent>
