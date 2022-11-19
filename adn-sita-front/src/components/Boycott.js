@@ -49,7 +49,7 @@ export function Boycott({ boycott }) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "#00b440" }} aria-label="recipe">
-            {/* <AccountCircle  /> */} 
+            {/* <AccountCircle /> */}
             {/* ! */}
           </Avatar>
         }
@@ -59,7 +59,7 @@ export function Boycott({ boycott }) {
           </IconButton>
         }
         title={boycott.title}
-        subheader={formattedDate + " by " + boycott.userId.pseudo}
+        subheader={formattedDate}
         color="#ffffff"
       />
       <CardMedia
