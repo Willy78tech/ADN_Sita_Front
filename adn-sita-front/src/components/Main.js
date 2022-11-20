@@ -21,10 +21,18 @@ export function Main() {
   }, []);
 
   return (
-    <Box sx={{bgcolor: "#474747", display: "flex", flexDirection: "column", alignItems: "center", p: "2rem"}}>
-        {boycotts.map((boycott) => {
-          return <Boycott key={boycott._id} boycott={boycott} />;
-        })}
+    <Box
+      sx={{
+        bgcolor: "#474747",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        p: "2rem",
+      }}
+    >
+      {boycotts.map((boycott) => {
+        return <Boycott key={boycott._id} boycott={boycott} />;
+      })}
     </Box>
   );
 }
