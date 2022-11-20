@@ -19,9 +19,6 @@ import { format } from "date-fns";
 import { et } from "date-fns/locale";
 import { color } from "@mui/system";
 
-
-
-
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -34,7 +31,6 @@ const ExpandMore = styled((props) => {
 }));
 
 export function Boycott({ boycott }) {
-  
   const date = new Date(boycott.createdAt);
   const formattedDate = format(date, "dd/MM/yyyy HH:mm");
 
@@ -45,7 +41,9 @@ export function Boycott({ boycott }) {
   };
 
   return (
-    <Card sx={{ width: "40vw", bgcolor: "#1e1e1e", color: "#ffffff", mb: "5vh"}}>
+    <Card
+      sx={{ width: "40vw", bgcolor: "#1e1e1e", color: "#ffffff", mb: "5vh" }}
+    >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "#00b440" }} aria-label="recipe">
@@ -55,7 +53,7 @@ export function Boycott({ boycott }) {
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon color="white" sx={{color: "white"}}/>
+            <MoreVertIcon color="white" sx={{ color: "white" }} />
           </IconButton>
         }
         title={boycott.title}
@@ -65,20 +63,24 @@ export function Boycott({ boycott }) {
       <CardMedia
         component="img"
         height="194"
-        src={"https://images.kalanso.top/" + boycott.imageUrl}         
+        src={"https://images.kalanso.top/" + boycott.imageUrl}
         alt="image of the boycott"
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary" sx={{color: "white"}}>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ color: "white" }}
+        >
           {boycott.summary}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon sx={{color: "white"}}/>
+          <FavoriteIcon sx={{ color: "white" }} />
         </IconButton>
         <IconButton aria-label="share">
-          <ShareIcon sx={{color: "white"}}/>
+          <ShareIcon sx={{ color: "white" }} />
         </IconButton>
         <ExpandMore
           expand={expanded}
@@ -86,12 +88,14 @@ export function Boycott({ boycott }) {
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon sx={{color: "white"}}/>
+          <ExpandMoreIcon sx={{ color: "white" }} />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph sx={{color: "white"}}>{boycott.description}</Typography>
+          <Typography paragraph sx={{ color: "white" }}>
+            {boycott.description}
+          </Typography>
         </CardContent>
       </Collapse>
     </Card>

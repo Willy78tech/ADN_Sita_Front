@@ -47,10 +47,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export function InputSearch() {
-
   const [datas, setDatas] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   // React.useEffect(() => {
   //   axios
   //     .get("http://localhost:3000/get-users")
@@ -63,7 +62,7 @@ export function InputSearch() {
     setSearchTerm(value);
   };
   console.log(searchTerm);
-  
+
   return (
     <>
       <div>
