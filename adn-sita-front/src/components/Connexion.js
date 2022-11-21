@@ -9,7 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios"
 import toast from "react-hot-toast";
 
-export function Connexion({openConnexion}) {
+export function Connexion({ openConnexion }) {
   const [open, setOpen] = React.useState(false);
   const [openSubs, setOpenSubs] = React.useState(false);
 
@@ -74,8 +74,8 @@ export function Connexion({openConnexion}) {
   };
   return (
     <>
-      <Dialog open={open} onClose={handleClickCloseConnexion}>
-        <DialogTitle>Connexion</DialogTitle>
+      <Dialog open={open} onClose={handleClickCloseConnexion} >
+        <DialogTitle >Connexion</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Enter your account information here.

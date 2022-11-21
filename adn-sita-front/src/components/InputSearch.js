@@ -4,6 +4,7 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 // import { handleError } from "vue";
 
 const Search = styled("div")(({ theme }) => ({
@@ -49,13 +50,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export function InputSearch() {
   const [datas, setDatas] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
-  // React.useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3000/get-users")
-  //     .then((response) => response.json())
-  //     .then((data) => setDatas(data));
-  // }, []);
+  React.useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/recipes")
+      .then((response) => {
+        setDatas(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
 
   const handleSearchTerm = (event) => {
     let value = event.target.value;
@@ -75,6 +82,7 @@ export function InputSearch() {
             inputProps={{ "aria-label": "search" }}
             sx={{}}
             onClick={handleSearchTerm}
+            onClick={() => navigate("ResultSearch")}
           />
         </Search>
       </div>

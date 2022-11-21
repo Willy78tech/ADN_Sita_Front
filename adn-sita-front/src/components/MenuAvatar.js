@@ -33,7 +33,7 @@ export function MenuAvatar() {
         >
           <AccountCircle sx={{ fontSize: "8vh" }} />
         </IconButton>
-        <Connexion openConnexion={open}/>
+        <Connexion openConnexion={open} />
       </Box>
     </div>
   );
