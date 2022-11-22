@@ -1,11 +1,8 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { styled, alpha } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { handleError } from "vue";
+import { styled, alpha, InputBase } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -63,7 +60,6 @@ export function InputSearch() {
       });
   }, []);
 
-
   const handleSearchTerm = (event) => {
     let value = event.target.value;
     setSearchTerm(value);
@@ -82,7 +78,7 @@ export function InputSearch() {
             inputProps={{ "aria-label": "search" }}
             sx={{}}
             onClick={handleSearchTerm}
-            onClick={() => navigate("ResultSearch")}
+            // onClick={() => navigate("ResultSearch")}
           />
         </Search>
       </div>
