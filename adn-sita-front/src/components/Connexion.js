@@ -1,13 +1,15 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import axios from "axios"
+import axios from "axios";
 import toast from "react-hot-toast";
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
 export function Connexion({ openConnexion }) {
   const [open, setOpen] = React.useState(false);
@@ -15,7 +17,7 @@ export function Connexion({ openConnexion }) {
 
   React.useEffect(() => {
     setOpen(openConnexion);
-  }, [openConnexion])
+  }, [openConnexion]);
 
   const handleClickOpenConnexion = () => {
     setOpen(true);
@@ -28,7 +30,7 @@ export function Connexion({ openConnexion }) {
 
   const handleClickOpenSubscribe = () => {
     setOpenSubs(true);
-    setOpen(false)
+    setOpen(false);
   };
 
   const handleClickCloseSubscribe = () => {
@@ -50,7 +52,10 @@ export function Connexion({ openConnexion }) {
       })
       .then((response) => {
         console.log(response);
-        toast.success("Vous êtes bien inscrit !");
+        toast.success("Subscription Completed");
+      })
+      .catch(error => {
+        toast.error("Subscription Error")
       });
   };
 
@@ -66,16 +71,20 @@ export function Connexion({ openConnexion }) {
         console.log(response);
         if (response.data.token) {
           sessionStorage.setItem("token", response.data.token);
-          toast.success("Vous êtes connecté");
+          toast.success("You Are Connected");
         } else {
-          toast.error("Erreur de connexion");
+          toast.error("Connexion Error");
         }
+      })
+      .catch(error => {
+        toast.error("Connexion Error")
       });
   };
+
   return (
     <>
-      <Dialog open={open} onClose={handleClickCloseConnexion} >
-        <DialogTitle >Connexion</DialogTitle>
+      <Dialog open={open} onClose={handleClickCloseConnexion}>
+        <DialogTitle>Connexion</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Enter your account information here.

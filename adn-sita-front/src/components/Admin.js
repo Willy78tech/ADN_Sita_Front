@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react';
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 import { Boycott } from "./Boycott";
 import Box from "@mui/material/Box";
-import toast, { Toaster } from "react-hot-toast";
 
-export function Main() {
+export function Admin() {
+
   const [boycotts, setBoycotts] = React.useState([]);
 
   React.useEffect(() => {
     axios
       .get("http://localhost:3000/get-boycotts")
       .then((res) => {
-        // console.log(res.data.boycott);
         setBoycotts(res.data.boycott);
-        toast.success("Successfully toasted!");
+        toast.success("Get Boycotts Admin");
       })
       .catch((error) => {
-        toast.error("This didn't work.");
+        toast.error("Get Boycotts Admin");
       });
   }, []);
 
