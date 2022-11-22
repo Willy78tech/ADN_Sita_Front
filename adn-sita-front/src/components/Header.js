@@ -2,9 +2,21 @@ import * as React from "react";
 import { MenuAvatar } from "./MenuAvatar";
 import { InputSearch } from "./InputSearch";
 import { Sidebar } from "./BurgerMenu";
+import { Logout } from "./Logout";
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 
 export function Header() {
+  const [connected, setConnected] = React.useState(false);
+
+  React.useEffect(() => {
+    // Trouver un meilleur moyen de cacher le boutton logout ***************************************************
+    if (sessionStorage.getItem("token")) {
+      setConnected(true);
+    } else {
+      setConnected(false);
+    }
+  }, [connected]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ bgcolor: "#272727", padding: "0.5vh" }}>
@@ -28,7 +40,8 @@ export function Header() {
               ADN
             </Typography>
           </Box>
-          <Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            {connected ? <Logout /> : null}
             <MenuAvatar />
           </Box>
         </Toolbar>

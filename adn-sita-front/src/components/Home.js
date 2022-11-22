@@ -4,7 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Boycott } from "./Boycott";
 import { Box } from "@mui/material";
 
-export function Main() {
+export function Home() {
   const [boycotts, setBoycotts] = React.useState([]);
 
   React.useEffect(() => {

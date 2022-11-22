@@ -1,5 +1,7 @@
 import * as React from "react";
 import { format } from "date-fns";
+import { MenuBoycott } from "./MenuBoycott";
+import { Comment } from "./Comment";
 import {
   Card,
   CardHeader,
@@ -15,7 +17,7 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { LikeBoycott } from "./LikeBoycott";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -37,6 +39,7 @@ export function Boycott({ boycott }) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  
 
   return (
     <Card
@@ -44,15 +47,10 @@ export function Boycott({ boycott }) {
     >
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: "#00b440" }} aria-label="recipe">
-            {/* <AccountCircle /> */}
-            {/* ! */}
-          </Avatar>
+          <Avatar sx={{ bgcolor: "#00b440" }} aria-label="recipe" />
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon color="white" sx={{ color: "white" }} />
-          </IconButton>
+          <MenuBoycott/>
         }
         title={boycott.title}
         subheader={formattedDate}
@@ -74,9 +72,7 @@ export function Boycott({ boycott }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon sx={{ color: "white" }} />
-        </IconButton>
+        <LikeBoycott/>
         <IconButton aria-label="share">
           <ShareIcon sx={{ color: "white" }} />
         </IconButton>
@@ -94,6 +90,7 @@ export function Boycott({ boycott }) {
           <Typography paragraph sx={{ color: "white" }}>
             {boycott.description}
           </Typography>
+          <Comment boycottId={boycott._id}/>
         </CardContent>
       </Collapse>
     </Card>

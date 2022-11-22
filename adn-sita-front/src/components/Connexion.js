@@ -70,6 +70,7 @@ export function Connexion({ openConnexion }) {
       .then((response) => {
         console.log(response);
         if (response.data.token) {
+          sessionStorage.setItem("userId", response.data.userId);
           sessionStorage.setItem("token", response.data.token);
           toast.success("You Are Connected");
         } else {
