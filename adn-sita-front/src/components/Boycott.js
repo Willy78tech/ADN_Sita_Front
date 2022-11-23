@@ -14,7 +14,6 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { LikeBoycott } from "./LikeBoycott";
@@ -39,18 +38,18 @@ export function Boycott({ boycott }) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  
 
   return (
     <Card
       sx={{ width: "40vw", bgcolor: "#1e1e1e", color: "#ffffff", mb: "5vh" }}
     >
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: "#00b440" }} aria-label="recipe" />
-        }
+        avatar={<Avatar sx={{ bgcolor: "#00b440" }} aria-label="recipe" />}
         action={
-          <MenuBoycott/>
+          <MenuBoycott
+            boycottId={boycott._id}
+            reported={boycott.reports ? true : false} // Regarder si la condition fonctionne ****************************************
+          />
         }
         title={boycott.title}
         subheader={formattedDate}
@@ -72,7 +71,7 @@ export function Boycott({ boycott }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <LikeBoycott/>
+        <LikeBoycott />
         <IconButton aria-label="share">
           <ShareIcon sx={{ color: "white" }} />
         </IconButton>
@@ -90,7 +89,7 @@ export function Boycott({ boycott }) {
           <Typography paragraph sx={{ color: "white" }}>
             {boycott.description}
           </Typography>
-          <Comment boycottId={boycott._id}/>
+          <Comment boycottId={boycott._id} />
         </CardContent>
       </Collapse>
     </Card>

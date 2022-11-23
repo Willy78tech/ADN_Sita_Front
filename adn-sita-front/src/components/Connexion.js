@@ -10,10 +10,12 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export function Connexion({ openConnexion }) {
   const [open, setOpen] = React.useState(false);
   const [openSubs, setOpenSubs] = React.useState(false);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     setOpen(openConnexion);
@@ -80,6 +82,8 @@ export function Connexion({ openConnexion }) {
       .catch(error => {
         toast.error("Connexion Error")
       });
+
+      navigate("/")
   };
 
   return (

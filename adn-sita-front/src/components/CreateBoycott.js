@@ -1,34 +1,41 @@
 import React from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import {
-  Box,
-  Button,
-  TextField,
-} from "@mui/material";
-import image from '../img/logo.png'
+import { Box, Button, TextField } from "@mui/material";
+// import image from "../img/logo.png";
 
 export function CreateBoycott() {
+  var formData = new FormData();
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  const [title, setTitle] = React.useState("");
+  const [summary, setSummary] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [file, setFile] = React.useState();
+
+  // var imagefile = document.getElementById("file");
+  formData.append("title", title);
+  formData.append("summary", summary);
+  formData.append("description", description);
+  formData.append("file", file);
+
+  // bodyFormData.append("title", document.getElementById("title"));
+  // bodyFormData.append("summary", document.getElementById("summary"));
+  // bodyFormData.append(
+  //   "description",
+  //   document.getElementById("description")
+  // );
+  // bodyFormData.append("file", document.getElementById("file"));
+
+  function handleSubmit() {
+    // event.preventDefault();
     axios
-      .post(
-        "http://localhost:3000/add-boycott",
-        {
-          title: document.getElementById("title").value,
-          summary: document.getElementById("summary").value,
-          description: document.getElementById("description").value,
-          file: image // qq chose a changer ici????
+      .post("http://localhost:3000/add-boycott", formData, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then((response) => {
-        // console.log(response);
+      })
+      .then((res) => {
+        console.log(res);
         toast.success("New Boycott Created");
       })
       .catch((error) => {
@@ -36,11 +43,28 @@ export function CreateBoycott() {
       });
   }
 
+  function handleTitle(e) {
+    setTitle(e.target.value);
+    // console.log(title);
+  }
+
+  function handleSummary(e) {
+    setSummary(e.target.value);
+  }
+
+  function handleDescription(e) {
+    setDescription(e.target.value);
+  }
+
+  function handleFile(e) {
+    setFile(e.target.file);
+  }
+
   return (
     <>
       <Box
-        component="form"
-        onSubmit={handleSubmit}
+        // component="form"
+        // onSubmit={handleSubmit}
         sx={{
           "& .MuiTextField-root": { m: 1, width: "25ch" },
           bgcolor: "#474747",
@@ -49,27 +73,21 @@ export function CreateBoycott() {
           flexDirection: "column",
           alignItems: "center",
         }}
-        noValidate
+        // noValidate
         autoComplete="off"
       >
-        <TextField required label="Title" id="title" />
+        <TextField label="Title" id="title" onChange={handleTitle} />
         <TextField
-          required
           multiline
           maxRows={2}
           label="Summary"
           id="summary"
           helperText="Maximum 255 characters"
+          onChange={handleSummary}
         />
-        <TextField
-          required
-          multiline
-          maxRows={4}
-          label="Description"
-          id="description"
-        />
-        <TextField required type="file" helperText="Image *" id="image" />
-        <Button type="submit">Publish</Button>
+        <TextField multiline maxRows={4} label="Description" id="description" onChange={handleDescription}/>
+        <TextField type="file" helperText="Image *" id="file" onChange={handleFile}/>
+        <Button onClick={handleSubmit}>Publish</Button>
       </Box>
     </>
   );
