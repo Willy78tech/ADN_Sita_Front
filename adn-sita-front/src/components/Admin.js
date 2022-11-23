@@ -6,19 +6,33 @@ import { Box } from "@mui/material";
 
 export function Admin() {
   const [boycotts, setBoycotts] = React.useState([]);
-  const [admin, setAdmin] = React.useState(false);
 
-  React.useEffect(() => {
+  React.useEffect(() => { 
     axios
-      .get("http://localhost:3000/get-user/" + sessionStorage.getItem("userId"), {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-      })
+      .get(
+        "http://localhost:3000/get-user/" + sessionStorage.getItem("userId"),
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.data.user.isAdmin === true) {
-          // Ne marche pas car ne recois rien appeler isAdmin **************************************************
-          setAdmin(true);
+          axios
+            .get("http://localhost:3000/get-reports", {
+              headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+              },
+            })
+            .then((res) => {
+              console.log(res);
+              setBoycotts(res.data.reports);
+              toast.success("Get Reported Boycotts");
+            })
+            .catch((error) => {
+              toast.error("Get Reported Boycotts");
+            });
           toast.success("Is Admin");
         } else {
           toast.success("Is Not Admin");
@@ -27,26 +41,6 @@ export function Admin() {
       .catch((error) => {
         toast.error("Admin Check Error");
       });
-  }, []);
-
-  React.useEffect(() => {
-    if (admin) {
-      axios
-        .get("http://localhost:3000/get-reports", {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        })
-        .then((res) => {
-          // À tester si il marche ******************************************************************
-          console.log(res)
-          setBoycotts(res.data.boycott);
-          toast.success("Get Boycotts Admin");
-        })
-        .catch((error) => {
-          toast.error("Get Boycotts Admin");
-        });
-    }
   }, []);
 
   return (
@@ -60,7 +54,7 @@ export function Admin() {
       }}
     >
       {boycotts.map((boycott) => {
-        return <Boycott key={boycott._id} boycott={boycott} />;
+        return <Boycott key={boycott._id} boycott={boycott}/>;
       })}
     </Box>
   );

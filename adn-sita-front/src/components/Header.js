@@ -1,21 +1,23 @@
 import * as React from "react";
 import { MenuAvatar } from "./MenuAvatar";
-import { InputSearch } from "./InputSearch";
+import { Search } from "./Search";
 import { Sidebar } from "./BurgerMenu";
 import { Logout } from "./Logout";
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 
 export function Header() {
-  const [connected, setConnected] = React.useState(false);
+  const [connected, setConnected] = React.useState(sessionStorage.getItem("token") ? true : false);
 
-  React.useEffect(() => {
-    // Trouver un meilleur moyen de cacher le boutton logout ***************************************************
-    if (sessionStorage.getItem("token")) {
-      setConnected(true);
-    } else {
-      setConnected(false);
-    }
-  }, [connected]);
+  // const connectedTest = sessionStorage.getItem("token") ? true : false;
+
+  // React.useEffect(() => {
+  //   // Trouver un meilleur moyen de cacher le boutton logout ***************************************************
+  //   if (sessionStorage.getItem("token")) {
+  //     setConnected(true);
+  //   } else {
+  //     setConnected(false);
+  //   }
+  // }, [connected]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -23,7 +25,7 @@ export function Header() {
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Sidebar />
-            <InputSearch />
+            <Search />
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", mr: "15vw" }}>
             <img src="img/logo.png" alt="Logo" height="80vh"></img>
@@ -41,7 +43,7 @@ export function Header() {
             </Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            {connected ? <Logout /> : null}
+            {connected ? <Logout onclick={() => setConnected(false)}/> : null}
             <MenuAvatar />
           </Box>
         </Toolbar>

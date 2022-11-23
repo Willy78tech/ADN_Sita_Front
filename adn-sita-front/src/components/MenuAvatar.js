@@ -1,13 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Connexion } from "./Connexion";
 import { IconButton, Box } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
 export function MenuAvatar() {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   function handleClick() {
-    setOpen(!open);
+    if(sessionStorage.getItem("token")) {
+      navigate("profile");
+    } else {
+      setOpen(!open);
+    }
   }
 
   return (

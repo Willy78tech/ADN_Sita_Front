@@ -1,13 +1,37 @@
 import React from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-export function MenuBoycott() {
+export function MenuBoycott({ boycottId, reported }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [admin, setAdmin] = React.useState(false);
   const [creator, setCreator] = React.useState(false);
-  const [reported, setreported] = React.useState(false);
 
+  React.useEffect(() => {
+    axios
+      .get(
+        "http://localhost:3000/get-user/" + sessionStorage.getItem("userId"),
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.user.isAdmin === true) {
+          setAdmin(true);
+          console.log(reported)
+          toast.success("Is Admin For Menu");
+        } else {
+          toast.success("Is Not Admin For Menu");
+        }
+      })
+      .catch((error) => {
+        toast.error("Admin Check Error");
+      });
+  }, []);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -16,6 +40,38 @@ export function MenuBoycott() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  function handleReport() {
+    axios
+      .post("http://localhost:3000/report-boycott/" + boycottId + "/" + sessionStorage.getItem("userId"), {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        toast.success("Boycott Reported");
+      })
+      .catch((error) => {
+        toast.error("Boycott Not Reported");
+      });
+  }
+
+  function handleUnreport() {
+    // axios
+    //   .post("http://localhost:3000/report-boycott/" + boycottId + "/" + sessionStorage.getItem("userId"), {
+    //     headers: {
+    //       Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     toast.success("Boycott Reported");
+    //   })
+    //   .catch((error) => {
+    //     toast.error("Boycott Not Reported");
+    //   });
+  }
 
   return (
     <div>
@@ -37,11 +93,17 @@ export function MenuBoycott() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {admin && reported ? <MenuItem onClick={handleClose}>Unreport</MenuItem> : null}
-        {admin || creator ? <MenuItem onClick={handleClose}>Delete</MenuItem> : null}
+        {admin && reported ? (
+          <MenuItem onClick={handleUnreport}>Unreport</MenuItem>
+        ) : null}
+        {admin || creator ? (
+          <MenuItem onClick={handleClose}>Delete</MenuItem>
+        ) : null}
         {creator ? <MenuItem onClick={handleClose}>Modify</MenuItem> : null}
-        {!admin && !creator ? <MenuItem onClick={handleClose}>Report</MenuItem> : null}
-        <MenuItem onClick={handleClose}>See Boycotters</MenuItem>
+        {!admin && !creator ? (
+          <MenuItem onClick={handleReport}>Report</MenuItem>
+        ) : null}
+        {/* <MenuItem onClick={handleClose}>See Boycotters</MenuItem> */}
       </Menu>
     </div>
   );
