@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
+import { Boycott } from "./Boycott";
 import { Box } from "@mui/material";
 
 export function ResearchProfile() {
@@ -9,8 +10,9 @@ export function ResearchProfile() {
     pseudo: "",
     quote: "",
     country: "",
-    city: ""
+    city: "",
   });
+  const [boycott, setBoycott] = React.useState([]);
   const params = useParams();
 
   useEffect(() => {
@@ -31,6 +33,25 @@ export function ResearchProfile() {
       });
   }, []);
 
+  React.useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      axios
+        .get("/get-boycott-created/" + params.id, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setBoycott(res.data.boycotts);
+          toast.success("Boycott Created Success");
+        })
+        .catch((error) => {
+          toast.error("Boycott Created Error");
+        });
+    }
+  }, []);
+
   // if (!user) return <CircularProgress />;
 
   return (
@@ -48,6 +69,9 @@ export function ResearchProfile() {
       <p>{user.quote}</p>
       <p>{user.country}</p>
       <p>{user.city}</p>
+      {boycott.map((boycott) => {
+        return <Boycott key={boycott._id} boycott={boycott} />;
+      })}
     </Box>
   );
 }
