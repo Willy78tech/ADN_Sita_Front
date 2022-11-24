@@ -47,8 +47,9 @@ export function Boycott({ boycott }) {
         avatar={<Avatar sx={{ bgcolor: "#00b440" }} aria-label="recipe" />}
         action={
           <MenuBoycott
+            boycott={boycott}
             boycottId={boycott._id}
-            reported={boycott.reports ? true : false} // Regarder si la condition fonctionne ****************************************
+            reported={boycott.isReport} // Regarder si la condition fonctionne ****************************************
           />
         }
         title={boycott.title}
@@ -89,7 +90,7 @@ export function Boycott({ boycott }) {
           <Typography paragraph sx={{ color: "white" }}>
             {boycott.description}
           </Typography>
-          <Comment boycottId={boycott._id} />
+          <Comment boycott={boycott} />
         </CardContent>
       </Collapse>
     </Card>

@@ -6,11 +6,13 @@ import { Home } from "./components/Home";
 import { Profile } from "./components/Profile";
 import {Admin} from "./components/Admin";
 import {CreateBoycott}from "./components/CreateBoycott";
-import {SearchResult}from "./components/SearchResult";
+import {ResearchProfile}from "./components/ResearchProfile";
+import axios from "axios";
 
 
 export default function App() {
-  
+  axios.defaults.baseURL = "http://localhost:3000";
+
   return (
     <>
       <Router>
@@ -20,7 +22,7 @@ export default function App() {
           <Route path="profile" element={<Profile />}/>
           <Route path="admin" element={<Admin />}/>
           <Route path="createBoycott" element={<CreateBoycott/>}/>
-          <Route path="searchResult" element={<SearchResult/>}/>
+          <Route path="researchProfile/:id" element={<ResearchProfile/>}/>
         </Routes>
       </Router>
       <Toaster position="bottom-right" />

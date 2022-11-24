@@ -62,7 +62,7 @@ export function Search() {
 
   function handleSearch(e) {
     axios
-      .get("http://localhost:3000/get-users", {
+      .get("/get-users", {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
@@ -82,8 +82,9 @@ export function Search() {
     setOpen(false);
   }
 
-  function handleNavigate() {
-    navigate("searchResult", { datas: datas });
+  function handleNavigate(id) {
+    setOpen(false);
+    navigate(`researchProfile/${id}`);
   }
 
   return (
@@ -93,6 +94,7 @@ export function Search() {
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
+          id="input"
           placeholder="Search…"
           onChange={(e) => setSearchInput(e.target.value)}
         />
@@ -102,7 +104,13 @@ export function Search() {
           return user.city == searchInput ||
             user.pseudo == searchInput ||
             user.country == searchInput ? (
-            <MenuItem key={user._id} onClick={handleClose}>
+            <MenuItem
+              key={user._id}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate(user._id);
+              }}
+            >
               {user.pseudo}
             </MenuItem>
           ) : null;

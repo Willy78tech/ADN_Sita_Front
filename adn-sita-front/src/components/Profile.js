@@ -15,7 +15,7 @@ export function Profile() {
     if (sessionStorage.getItem("token")) {
       axios
         .get(
-          "http://localhost:3000/get-user/" + sessionStorage.getItem("userId"),
+          "/get-user/" + sessionStorage.getItem("userId"),
           {
             headers: {
               Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -37,6 +37,7 @@ export function Profile() {
     <Box
       sx={{
         bgcolor: "#474747",
+        color: "white",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

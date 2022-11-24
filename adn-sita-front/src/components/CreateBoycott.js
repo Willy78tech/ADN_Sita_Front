@@ -5,42 +5,47 @@ import { Box, Button, TextField } from "@mui/material";
 // import image from "../img/logo.png";
 
 export function CreateBoycott() {
-  var formData = new FormData();
+  // var formData = new FormData();
 
   const [title, setTitle] = React.useState("");
   const [summary, setSummary] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState();
 
-  // var imagefile = document.getElementById("file");
-  formData.append("title", title);
-  formData.append("summary", summary);
-  formData.append("description", description);
-  formData.append("file", file);
-
-  // bodyFormData.append("title", document.getElementById("title"));
-  // bodyFormData.append("summary", document.getElementById("summary"));
-  // bodyFormData.append(
-  //   "description",
-  //   document.getElementById("description")
-  // );
-  // bodyFormData.append("file", document.getElementById("file"));
-
+  
   function handleSubmit() {
+    let formData = new FormData();
+    
+    formData.append("title", title);
+    formData.append("summary", summary);
+    formData.append("description", description);
+    formData.append("file", file, file.name);
+
     // event.preventDefault();
-    axios
-      .post("http://localhost:3000/add-boycott", formData, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        toast.success("New Boycott Created");
-      })
-      .catch((error) => {
-        toast.error("Boycott Creation Error");
-      });
+    // formData.append("file", file, file.name);
+    // formData.append("title", "un titre allo");
+    // formData.append("summary", "un summary allo");
+    // formData.append("description", "un description allo");
+
+    // console.log(formData);
+
+    axios.post("/add-boycott", {
+      formData,
+      // title: "title alex",
+      // summary: "summary alex",
+      // description: "description alex",
+    }, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        "Content-Type": "multipart/form-data",
+      },
+    }).then((res) => {
+      console.log(res);
+      toast.success("New Boycott Created");
+    })
+    .catch((error) => {
+      toast.error("Boycott Creation Error");
+    });
   }
 
   function handleTitle(e) {
@@ -57,8 +62,9 @@ export function CreateBoycott() {
   }
 
   function handleFile(e) {
-    setFile(e.target.file);
+    setFile(e.target.files[0]);
   }
+  
 
   return (
     <>
@@ -86,7 +92,8 @@ export function CreateBoycott() {
           onChange={handleSummary}
         />
         <TextField multiline maxRows={4} label="Description" id="description" onChange={handleDescription}/>
-        <TextField type="file" helperText="Image *" id="file" onChange={handleFile}/>
+        <input type="file" onChange={handleFile} />
+        {/* <TextField type="file" helperText="Image *" id="file" onChange={handleFile}/> */}
         <Button onClick={handleSubmit}>Publish</Button>
       </Box>
     </>
