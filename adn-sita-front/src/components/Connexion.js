@@ -43,7 +43,7 @@ export function Connexion({ openConnexion }) {
     setOpenSubs(false);
 
     axios
-      .post("http://localhost:3000/signup", {
+      .post("/signup", {
         pseudo: document.getElementById("pseudoSub").value,
         email: document.getElementById("emailSub").value,
         password: document.getElementById("passwordSub").value,
@@ -65,7 +65,7 @@ export function Connexion({ openConnexion }) {
     setOpen(false);
 
     axios
-      .post("http://localhost:3000/login", {
+      .post("/login", {
         email: document.getElementById("email").value,
         password: document.getElementById("password").value,
       })

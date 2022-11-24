@@ -3,19 +3,19 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { TextField, Box, Button, Typography } from "@mui/material";
 
-export function Comment({boycottId}) {
+export function Comment({ boycott }) {
   const [comments, setComments] = React.useState([]);
 
   React.useEffect(() => {
-    console.log(boycottId);
+    // console.log(boycott);
     axios
-      .get("http://localhost:3000/get-boycott/" + boycottId, {
+      .get("/get-boycott/" + boycott._id, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data.boycott.comments);
         setComments(res.data.boycott.comments);
         toast.success("Comments Loaded");
       })
@@ -27,7 +27,7 @@ export function Comment({boycottId}) {
   function handleClick() {
     axios
       .post(
-        "http://localhost:3000/add-comment/" + boycottId,
+        "/add-comment/" + boycott._id,
         {
           comment: document.getElementById("commentInput").value,
         },
@@ -38,7 +38,27 @@ export function Comment({boycottId}) {
         }
       )
       .then((res) => {
-        // console.log(res);
+        console.log(res);
+        toast.success("Comments Added");
+      })
+      .catch((error) => {
+        toast.error("Comment Adding Error");
+      });
+  }
+
+  function handleDelete(id) {
+    // console.log(id);
+    axios
+      .delete(
+        "/delete-comment/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
         toast.success("Comments Added");
       })
       .catch((error) => {
@@ -48,19 +68,32 @@ export function Comment({boycottId}) {
 
   return (
     <>
-      <Box >
+      <Box>
         <TextField
           id="commentInput"
           label="New Comment"
           variant="filled"
           multiline
-          rows={4}
+          rows={2}
         />
         <Button onClick={handleClick}>Send Comment</Button>
       </Box>
       {comments.map((comment) => (
         <Box key={comment._id}>
-          <Typography paragraph>{comment.comment}</Typography>
+          <Typography paragraph>
+            {comment.comment}
+            {/* {comment.userId._id} */}
+            {comment.userId._id == sessionStorage.getItem("userId") ? (
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleDelete(comment._id);
+                }}
+              >
+                Delete
+              </Button>
+            ) : null}
+          </Typography>
         </Box>
       ))}
     </>

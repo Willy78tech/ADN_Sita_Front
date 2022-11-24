@@ -62,7 +62,7 @@ export function Search() {
 
   function handleSearch(e) {
     axios
-      .get("http://localhost:3000/get-users", {
+      .get("/get-users", {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
@@ -82,10 +82,9 @@ export function Search() {
     setOpen(false);
   }
 
-  function handleNavigate(e) {
-    e.preventDefault();
+  function handleNavigate(id) {
     setOpen(false);
-    navigate("researchProfile");
+    navigate(`researchProfile/${id}`);
   }
 
   return (
@@ -105,7 +104,13 @@ export function Search() {
           return user.city == searchInput ||
             user.pseudo == searchInput ||
             user.country == searchInput ? (
-            <MenuItem key={user._id} onClick={(e) => handleNavigate(e)}>
+            <MenuItem
+              key={user._id}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigate(user._id);
+              }}
+            >
               {user.pseudo}
             </MenuItem>
           ) : null;

@@ -10,7 +10,7 @@ export function Admin() {
   React.useEffect(() => { 
     axios
       .get(
-        "http://localhost:3000/get-user/" + sessionStorage.getItem("userId"),
+        "/get-user/" + sessionStorage.getItem("userId"),
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -20,7 +20,7 @@ export function Admin() {
       .then((res) => {
         if (res.data.user.isAdmin === true) {
           axios
-            .get("http://localhost:3000/get-reports", {
+            .get("/get-reports", {
               headers: {
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
               },
