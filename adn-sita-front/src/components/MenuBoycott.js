@@ -117,10 +117,10 @@ export function MenuBoycott({ boycott, boycottId, reported }) {
           <MenuItem onClick={handleDelete}>Delete</MenuItem>
         ) : null}
         {/* {creator ? <MenuItem onClick={handleClose}>Modify</MenuItem> : null} */}
-        {!admin && !creator && !reported ? (
+        {!admin && !creator && !reported && sessionStorage.getItem("token") ? (
           <MenuItem onClick={handleReport}>Report</MenuItem>
         ) : null}
-        {!admin && !creator && reported ? <MenuItem onClick={handleClose}>No option...</MenuItem> : null}
+        {(!admin && !creator && reported) || !sessionStorage.getItem("token") ? <MenuItem onClick={handleClose}>No option...</MenuItem> : null}
       </Menu>
     </div>
   );
