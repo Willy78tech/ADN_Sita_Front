@@ -82,8 +82,10 @@ export function Search() {
     setOpen(false);
   }
 
-  function handleNavigate() {
-    navigate("searchResult", { datas: datas });
+  function handleNavigate(e) {
+    e.preventDefault();
+    setOpen(false);
+    navigate("researchProfile");
   }
 
   return (
@@ -93,6 +95,7 @@ export function Search() {
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
+          id="input"
           placeholder="Search…"
           onChange={(e) => setSearchInput(e.target.value)}
         />
@@ -102,7 +105,7 @@ export function Search() {
           return user.city == searchInput ||
             user.pseudo == searchInput ||
             user.country == searchInput ? (
-            <MenuItem key={user._id} onClick={handleClose}>
+            <MenuItem key={user._id} onClick={(e) => handleNavigate(e)}>
               {user.pseudo}
             </MenuItem>
           ) : null;

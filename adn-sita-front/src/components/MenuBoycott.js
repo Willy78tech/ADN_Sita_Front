@@ -43,7 +43,7 @@ export function MenuBoycott({ boycottId, reported }) {
 
   function handleReport() {
     axios
-      .post("http://localhost:3000/report-boycott/" + boycottId + "/" + sessionStorage.getItem("userId"), {
+      .post("http://localhost:3000/report-boycott/" + boycottId, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
@@ -58,19 +58,19 @@ export function MenuBoycott({ boycottId, reported }) {
   }
 
   function handleUnreport() {
-    // axios
-    //   .post("http://localhost:3000/report-boycott/" + boycottId + "/" + sessionStorage.getItem("userId"), {
-    //     headers: {
-    //       Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     toast.success("Boycott Reported");
-    //   })
-    //   .catch((error) => {
-    //     toast.error("Boycott Not Reported");
-    //   });
+    axios
+      .delete("http://localhost:3000/clear-reports/" + boycottId, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        toast.success("Boycott Unreported");
+      })
+      .catch((error) => {
+        toast.error("Boycott Not Unreported");
+      });
   }
 
   return (
@@ -100,10 +100,10 @@ export function MenuBoycott({ boycottId, reported }) {
           <MenuItem onClick={handleClose}>Delete</MenuItem>
         ) : null}
         {creator ? <MenuItem onClick={handleClose}>Modify</MenuItem> : null}
-        {!admin && !creator ? (
+        {!admin && !creator && !reported? (
           <MenuItem onClick={handleReport}>Report</MenuItem>
         ) : null}
-        {/* <MenuItem onClick={handleClose}>See Boycotters</MenuItem> */}
+        <MenuItem onClick={handleClose}>See Boycotters</MenuItem>
       </Menu>
     </div>
   );

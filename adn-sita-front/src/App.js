@@ -6,7 +6,7 @@ import { Home } from "./components/Home";
 import { Profile } from "./components/Profile";
 import {Admin} from "./components/Admin";
 import {CreateBoycott}from "./components/CreateBoycott";
-import {SearchResult}from "./components/SearchResult";
+import {ResearchProfile}from "./components/ResearchProfile";
 
 
 export default function App() {
@@ -20,7 +20,7 @@ export default function App() {
           <Route path="profile" element={<Profile />}/>
           <Route path="admin" element={<Admin />}/>
           <Route path="createBoycott" element={<CreateBoycott/>}/>
-          <Route path="searchResult" element={<SearchResult/>}/>
+          <Route path="researchProfile" element={<ResearchProfile/>}/>
         </Routes>
       </Router>
       <Toaster position="bottom-right" />

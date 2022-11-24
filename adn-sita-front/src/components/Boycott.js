@@ -48,7 +48,7 @@ export function Boycott({ boycott }) {
         action={
           <MenuBoycott
             boycottId={boycott._id}
-            reported={boycott.reports ? true : false} // Regarder si la condition fonctionne ****************************************
+            reported={boycott.isReport} // Regarder si la condition fonctionne ****************************************
           />
         }
         title={boycott.title}

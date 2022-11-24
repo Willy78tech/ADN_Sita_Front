@@ -9,14 +9,14 @@ export function Comment({boycottId}) {
   React.useEffect(() => {
     console.log(boycottId);
     axios
-      .get("http://localhost:3000/get-comments", {
+      .get("http://localhost:3000/get-boycott/" + boycottId, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         console.log(res);
-        setComments(res.data.comments);
+        setComments(res.data.boycott.comments);
         toast.success("Comments Loaded");
       })
       .catch((error) => {
