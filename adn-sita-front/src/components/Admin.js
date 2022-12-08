@@ -17,16 +17,13 @@ export function Admin() {
     }
   }, [admin]);
 
-  React.useEffect(() => { 
+  React.useEffect(() => {
     axios
-      .get(
-        "/get-user/" + sessionStorage.getItem("userId"),
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        }
-      )
+      .get("/get-user/" + sessionStorage.getItem("userId"), {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         if (res.data.user.isAdmin === true) {
           setAdmin(true);
@@ -55,21 +52,35 @@ export function Admin() {
       });
   }, []);
 
- 
-
   return (
-    <Box
-      sx={{
-        bgcolor: "#474747",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        p: "2rem",
-      }}
-    >
-      {boycotts.map((boycott) => {
-        return <Boycott key={boycott._id} boycott={boycott}/>;
-      })}
-    </Box>
+    <>
+      <Box
+        sx={{
+          bgcolor: "#474747",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          p: "2rem",
+        }}
+      >
+        <Box sx={{display: "flex", justifyContent: "space-evenly"}}>
+          <Box sx={{bgcolor: "red"}}>ALLo</Box>
+          <Box sx={{bgcolor: "green"}}>CA</Box>
+          <Box sx={{bgcolor: "purple"}}>MArche</Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            p: "2rem",
+          }}
+        >
+          {boycotts.map((boycott) => {
+            return <Boycott key={boycott._id} boycott={boycott} />;
+          })}
+        </Box>
+      </Box>
+    </>
   );
 }
