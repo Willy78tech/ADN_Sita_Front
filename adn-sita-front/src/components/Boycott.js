@@ -29,6 +29,12 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+const SubHeader = styled(Card)(({ theme }) => ({
+  color: "white",
+  backgroundColor: "#1e1e1e",
+  boxShadow: "0 0 0 0",
+}));
+
 export function Boycott({ boycott }) {
   const [expanded, setExpanded] = React.useState(false);
 
@@ -53,8 +59,8 @@ export function Boycott({ boycott }) {
           />
         }
         title={boycott.title}
-        subheader={formattedDate}
-        color="#ffffff"
+        subheader={<SubHeader>{formattedDate}</SubHeader>}
+        // color="#ffffff"
       />
       <CardMedia
         component="img"
@@ -90,7 +96,7 @@ export function Boycott({ boycott }) {
           <Typography paragraph sx={{ color: "white" }}>
             {boycott.description}
           </Typography>
-          <Comment boycott={boycott} />
+          {sessionStorage.getItem("token") ? <Comment boycott={boycott} /> : null}
         </CardContent>
       </Collapse>
     </Card>

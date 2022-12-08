@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import {
   IconButton,
@@ -14,11 +16,34 @@ import PersonIcon from "@mui/icons-material/Person";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import CreateIcon from "@mui/icons-material/Create";
 import MenuIcon from "@mui/icons-material/Menu";
+import GroupIcon from "@mui/icons-material/Group";
 
-export function Sidebar() {
+export function BurgerMenu() {
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({ left: false });
+  const [admin, setAdmin] = React.useState(false);
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    axios
+      .get("/get-user/" + sessionStorage.getItem("userId"), {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.user.isAdmin === true) {
+          setAdmin(true);
+          toast.success("Is Admin");
+        } else {
+          setAdmin(false);
+          toast.success("Is Not Admin");
+        }
+      })
+      .catch((error) => {
+        toast.error("Admin Check Error");
+      });
+  }, []);
 
   const itemslist = [
     {
@@ -32,9 +57,9 @@ export function Sidebar() {
       onclick: () => navigate("profile"),
     },
     {
-      text: "Admin",
-      icon: <AdminPanelSettingsIcon />,
-      onclick: () => navigate("admin"),
+      text: "Users",
+      icon: <GroupIcon />,
+      onclick: () => navigate("users"),
     },
     {
       text: "CreateBoycott",
@@ -90,6 +115,12 @@ export function Sidebar() {
                 </ListItemButton>
               );
             })}
+            {admin ? (
+              <ListItemButton onClick={() => navigate("admin")}>
+                <ListItemIcon><AdminPanelSettingsIcon /></ListItemIcon>
+                <ListItemText primary={"Admin"} />
+              </ListItemButton>
+            ) : null}
           </List>
         </Box>
       </Drawer>

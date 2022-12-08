@@ -9,6 +9,7 @@ import {
   Button,
   MenuItem,
   Dialog,
+  Box,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
@@ -89,16 +90,21 @@ export function Search() {
 
   return (
     <>
-      <SearchBox sx={{ height: "1" }}>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          id="input"
-          placeholder="Search…"
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
-      </SearchBox>
+      <Box sx={{display: "flex"}}>
+        <SearchBox sx={{ height: "1" }}>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            id="input"
+            placeholder="Search…"
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </SearchBox>
+        <Button variant="contained" color="success" onClick={handleSearch}>
+          Search
+        </Button>
+      </Box>
       <Dialog onClose={handleClose} open={open}>
         {datas.map((user) => {
           return user.city == searchInput ||
@@ -116,9 +122,6 @@ export function Search() {
           ) : null;
         })}
       </Dialog>
-      <Button variant="contained" color="success" onClick={handleSearch}>
-        Search
-      </Button>
     </>
   );
 }
