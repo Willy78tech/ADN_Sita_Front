@@ -1,11 +1,21 @@
 import React from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { Boycott } from "./Boycott";
 import { Box } from "@mui/material";
 
 export function Admin() {
+  const navigate = useNavigate();
   const [boycotts, setBoycotts] = React.useState([]);
+  const [admin, setAdmin] = React.useState(true);
+
+  React.useEffect(() => {
+    if (!sessionStorage.getItem("token") || !admin) {
+      toast.error("criss");
+      navigate(-1);
+    }
+  }, [admin]);
 
   React.useEffect(() => { 
     axios
@@ -19,6 +29,7 @@ export function Admin() {
       )
       .then((res) => {
         if (res.data.user.isAdmin === true) {
+          setAdmin(true);
           axios
             .get("/get-reports", {
               headers: {
@@ -35,6 +46,7 @@ export function Admin() {
             });
           toast.success("Is Admin");
         } else {
+          setAdmin(false);
           toast.success("Is Not Admin");
         }
       })
@@ -42,6 +54,8 @@ export function Admin() {
         toast.error("Admin Check Error");
       });
   }, []);
+
+ 
 
   return (
     <Box

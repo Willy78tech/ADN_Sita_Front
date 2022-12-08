@@ -1,10 +1,12 @@
 import React from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { Boycott } from "./Boycott";
 import { Box } from "@mui/material";
 
 export function Profile() {
+  const navigate = useNavigate();
   const [user, setUser] = React.useState({
     pseudo: "",
     quote: "",
@@ -12,6 +14,12 @@ export function Profile() {
     city: "",
   });
   const [boycott, setBoycott] = React.useState([]);
+
+  React.useEffect(() => {
+    if (!sessionStorage.getItem("token")) {
+      navigate(-1);
+    }
+  }, []);
 
   React.useEffect(() => {
     if (sessionStorage.getItem("token")) {

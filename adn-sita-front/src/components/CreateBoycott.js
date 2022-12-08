@@ -1,17 +1,24 @@
 import React from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField } from "@mui/material";
 // import image from "../img/logo.png";
 
 export function CreateBoycott() {
   // var formData = new FormData();
+  const navigate = useNavigate();
 
   const [title, setTitle] = React.useState("");
   const [summary, setSummary] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [file, setFile] = React.useState();
 
+  React.useEffect(() => {
+    if (!sessionStorage.getItem("token")) {
+      navigate(-1);
+    }
+  }, []);
   
   function handleSubmit() {
     let formData = new FormData();
