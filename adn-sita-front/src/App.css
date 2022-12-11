@@ -1,0 +1,25 @@
+.card{
+    margin: 1rem 1rem 1rem 0;
+    padding: 1.5rem;
+    width: 250px;
+    box-shadow: 0 0 28px 4px rgba(0,0,0,0.2);
+    transition: transform .3s ease;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+.card:hover{
+    transform: scale(1.1);
+}
+
+.card_title{
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.card_image{
+    display: flex;
+    justify-content: flex-end;
+}
+

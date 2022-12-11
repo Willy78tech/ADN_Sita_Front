@@ -30,7 +30,7 @@ const ExpandMore = styled((props) => {
 }));
 
 const SubHeader = styled(Card)(({ theme }) => ({
-  color: "white",
+  color: "#00B440",
   backgroundColor: "#1e1e1e",
   boxShadow: "0 0 0 0",
 }));
