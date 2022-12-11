@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Boycott } from "./Boycott";
 import { Box } from "@mui/material";
+import "../App.css";
+
 
 export function Admin() {
   const navigate = useNavigate();
@@ -63,10 +65,47 @@ export function Admin() {
           p: "2rem",
         }}
       >
-        <Box sx={{display: "flex", justifyContent: "space-evenly"}}>
-          <Box sx={{bgcolor: "red"}}>ALLo</Box>
-          <Box sx={{bgcolor: "green"}}>CA</Box>
-          <Box sx={{bgcolor: "purple"}}>MArche</Box>
+        <Box sx={{display: "flex", justifyContent: "space-around"}}>
+          <Box>
+          <div class="card">
+              <div class="card_title_admin">Traffic</div>
+              <div class="card_body">
+                <p>350,897</p>
+                <p><span> 3.48%...Since last month</span></p>
+                <p><span class="reported">{boycotts.length}</span> boycott(s) reported</p>
+              </div>
+            </div>
+          </Box>
+          <Box>
+          <div class="card">
+              <div class="card_title_admin">New Users</div>
+              <div class="card_body">
+                <p>2,356</p>
+                <p><span> 3.48%</span></p>
+                <p>Since last week</p>
+              </div>
+            </div>
+          </Box>
+          <Box>
+          <div class="card">
+              <div class="card_title_admin">Sales</div>
+              <div class="card_body">
+                <p>924</p>
+                <p><span> 1.10%</span></p>
+                <p>Since yesterday</p>
+              </div>
+            </div>
+          </Box>
+          <Box>
+          <div class="card">
+              <div class="card_title_admin">Performance</div>
+              <div class="card_body">
+                <p>49,65%</p>
+                <p><span> 12%</span></p>
+                <p>Since last month</p>
+              </div>
+            </div>
+          </Box>
         </Box>
         <Box
           sx={{
@@ -84,3 +123,4 @@ export function Admin() {
     </>
   );
 }
+

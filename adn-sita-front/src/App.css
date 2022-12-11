@@ -23,3 +23,13 @@
     justify-content: flex-end;
 }
 
+.reported {
+    color: red;
+    font-size: 30px;
+}
+
+.card_title_admin{
+    color: #00B344;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
