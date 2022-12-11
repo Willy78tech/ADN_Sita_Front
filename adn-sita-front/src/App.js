@@ -7,6 +7,7 @@ import { Profile } from "./components/Profile";
 import { Users } from "./components/Users";
 import { Admin } from "./components/Admin";
 import { Error } from "./components/Error";
+import { ProfileCard } from "./components/ProfileCard";
 import { CreateBoycott } from "./components/CreateBoycott";
 import { ResearchProfile } from "./components/ResearchProfile";
 import axios from "axios";
@@ -20,7 +21,7 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<ProfileCard />} />
           <Route path="users" element={<Users />} />
           <Route path="admin" element={<Admin />} />
           <Route path="createBoycott" element={<CreateBoycott />} />

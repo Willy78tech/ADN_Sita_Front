@@ -65,9 +65,9 @@ export function Admin() {
           p: "2rem",
         }}
       >
-        <Box sx={{display: "flex", justifyContent: "space-around"}}>
+        <Box sx={{ display: "flex", justifyContent: "space-around" }}>
           <Box>
-          <div class="card">
+            <div class="card">
               <div class="card_title_admin">Traffic</div>
               <div class="card_body">
                 <p>350,897</p>
@@ -77,7 +77,7 @@ export function Admin() {
             </div>
           </Box>
           <Box>
-          <div class="card">
+            <div class="card">
               <div class="card_title_admin">New Users</div>
               <div class="card_body">
                 <p>2,356</p>
@@ -87,7 +87,7 @@ export function Admin() {
             </div>
           </Box>
           <Box>
-          <div class="card">
+            <div class="card">
               <div class="card_title_admin">Sales</div>
               <div class="card_body">
                 <p>924</p>
@@ -97,7 +97,7 @@ export function Admin() {
             </div>
           </Box>
           <Box>
-          <div class="card">
+            <div class="card">
               <div class="card_title_admin">Performance</div>
               <div class="card_body">
                 <p>49,65%</p>
