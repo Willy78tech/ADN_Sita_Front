@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -55,39 +56,61 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export function Search() {
-  const [datas, setDatas] = React.useState([]);
-  const [searchInput, setSearchInput] = React.useState("");
-  const [open, setOpen] = React.useState(false);
+  const [users, setUsers] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
 
   const navigate = useNavigate();
 
-  function handleSearch(e) {
-    axios
+  useEffect(() => {
+    (async () => {
+      let userDatas;
+      try {
+        const response = await axios.get("/get-users", {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        });
+        userDatas = response.data.users;
+        toast.success("Search Result");
+      } catch (error) {
+        toast.error("Search Error");
+      }
+      setAllUsers(userDatas);
+      setUsers(userDatas);
+      
+    })();
+  }, []);
+
+    
+    /* axios
       .get("/get-users", {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
       .then((res) => {
-        console.log(res);
         setDatas(res.data.users);
+        setAllDatas(res.data.users);
         setOpen(true);
         toast.success("Search Result");
       })
       .catch((error) => {
         toast.error("Search Error");
       });
+  } , []);
+ */
+  const filterCards = event => {
+    const value = event.target.value;
+    const filteredUsers = allUsers.filter(
+      (user) =>
+       ( user.city.toLowerCase().includes(value.toLowerCase()) ||
+        user.pseudo.toLowerCase().includes(value.toLowerCase()) ||
+        user.country.toLowerCase().includes(value.toLowerCase())
+        )
+    );
+    setAllUsers(filteredUsers);
+    console.log(filteredUsers);
   }
-
-  function handleClose() {
-    setOpen(false);
-  }
-
-  function handleNavigate(id) {
-    setOpen(false);
-    navigate(`researchProfile/${id}`);
-  }
-
   return (
     <>
       <Box sx={{display: "flex"}}>
@@ -98,14 +121,15 @@ export function Search() {
           <StyledInputBase
             id="input"
             placeholder="Search…"
-            onChange={(e) => setSearchInput(e.target.value)}
+            onInput={filterCards}
           />
         </SearchBox>
-        <Button variant="contained" color="success" onClick={handleSearch}>
+        
+        {/* <Button variant="contained" color="success" onClick={handleSearch}>
           Search
-        </Button>
+        </Button> */}
       </Box>
-      <Dialog onClose={handleClose} open={open}>
+      {/* <Dialog onClose={handleClose} open={open}>
         {datas.map((user) => {
           return user.city == searchInput ||
             user.pseudo == searchInput ||
@@ -121,7 +145,7 @@ export function Search() {
             </MenuItem>
           ) : null;
         })}
-      </Dialog>
+      </Dialog> */}
     </>
   );
 }

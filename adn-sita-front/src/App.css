@@ -7,7 +7,17 @@
     cursor: pointer;
     background-color: black;
     color: white;
+
 }
+
+.users{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: "space-evenly";
+	background-color: #474747;
+	padding: 0.5rem;
+}
+
 
 .card:hover{
     transform: scale(1.1);
@@ -41,6 +51,7 @@
 	height: auto;
 	border-radius: 14px;
 	box-shadow: #00B344;
+	margin-bottom: 1rem;
 }
 
 .header_profile {
@@ -103,4 +114,15 @@
 
 .photos {
 	flex: 1;
+}
+
+.connexion{
+	background-color: black;
+	color: #00B344;
+}
+
+.logout{
+	background-color: #474747;
+	color: #00B344;
+	font-weight: bold;
 }

@@ -19,45 +19,32 @@ export function CreateBoycott() {
       navigate(-1);
     }
   }, []);
-  
+
   function handleSubmit() {
     let formData = new FormData();
-    
+
     formData.append("title", title);
     formData.append("summary", summary);
     formData.append("description", description);
-    formData.append("file", file, file.name);
+    formData.append("file", file);
 
-    // event.preventDefault();
-    // formData.append("file", file, file.name);
-    // formData.append("title", "un titre allo");
-    // formData.append("summary", "un summary allo");
-    // formData.append("description", "un description allo");
-
-    // console.log(formData);
-
-    axios.post("/add-boycott", {
+    axios.post("/add-boycott",
       formData,
-      // title: "title alex",
-      // summary: "summary alex",
-      // description: "description alex",
-    }, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        "Content-Type": "multipart/form-data",
-      },
-    }).then((res) => {
-      console.log(res);
-      toast.success("New Boycott Created");
-    })
-    .catch((error) => {
-      toast.error("Boycott Creation Error");
-    });
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data; boundary=???",
+        },
+      }).then((res) => {
+        toast.success("New Boycott Created");
+      })
+      .catch((error) => {
+        toast.error("Boycott Creation Error");
+      });
   }
 
   function handleTitle(e) {
     setTitle(e.target.value);
-    // console.log(title);
   }
 
   function handleSummary(e) {
@@ -71,7 +58,6 @@ export function CreateBoycott() {
   function handleFile(e) {
     setFile(e.target.files[0]);
   }
-  
 
   return (
     <>
@@ -98,7 +84,7 @@ export function CreateBoycott() {
           helperText="Maximum 255 characters"
           onChange={handleSummary}
         />
-        <TextField multiline maxRows={4} label="Description" id="description" onChange={handleDescription}/>
+        <TextField multiline maxRows={4} label="Description" id="description" onChange={handleDescription} />
         <input type="file" onChange={handleFile} />
         {/* <TextField type="file" helperText="Image *" id="file" onChange={handleFile}/> */}
         <Button onClick={handleSubmit}>Publish</Button>

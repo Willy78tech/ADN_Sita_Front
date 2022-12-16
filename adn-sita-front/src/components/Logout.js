@@ -3,6 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import "../App.css";
 
 export function Logout() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export function Logout() {
 
   return (
     <>
-      <Button onClick={handleClick}>Logout</Button>
+      <Button class="logout" onClick={handleClick}>Logout</Button>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import '../App.css';
 import {
   Button,
   TextField,
@@ -89,8 +90,9 @@ export function Connexion({ openConnexion }) {
   return (
     <>
       <Dialog open={open} onClose={handleClickCloseConnexion}>
+      <div class="connexion">
         <DialogTitle>Connexion</DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{bgcolor: "#fff"}}>
           <DialogContentText>
             Enter your account information here.
           </DialogContentText>
@@ -103,6 +105,7 @@ export function Connexion({ openConnexion }) {
             type="email"
             fullWidth
             variant="standard"
+            sx={{color: "#00B344"}}
           />
           <TextField
             autoFocus
@@ -113,24 +116,27 @@ export function Connexion({ openConnexion }) {
             type="password"
             fullWidth
             variant="standard"
+            sx={{color: "#00B344"}}
           />
         </DialogContent>
         <DialogActions>
           <Button
             onClick={handleClickOpenSubscribe}
-            sx={{ textDecoration: "underline", fontSize: "0.75rem" }}
+            sx={{ textDecoration: "underline", fontSize: "0.75rem", color: "#00B344" }}
           >
             No Account?
           </Button>
         </DialogActions>
         <DialogActions>
-          <Button onClick={handleClickCloseConnexion}>Cancel</Button>
-          <Button onClick={handleConnexion}>Connect</Button>
+          <Button onClick={handleClickCloseConnexion} sx={{color: "#00B344"}}>Cancel</Button>
+          <Button onClick={handleConnexion} sx={{color: "#00B344"}}>Connect</Button>
         </DialogActions>
+        </div>
       </Dialog>
       <Dialog open={openSubs} onClose={handleClickCloseSubscribe}>
+        <div class="connexion">
         <DialogTitle>Subscription</DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{bgcolor: "#fff"}}>
           <DialogContentText>
             Enter your new account information here.
           </DialogContentText>
@@ -196,12 +202,14 @@ export function Connexion({ openConnexion }) {
             type="password"
             fullWidth
             variant="standard"
+            sx={{color: "#00B344"}}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClickOpenConnexion}>Back</Button>
-          <Button onClick={handleSubscribe}>Subscribe</Button>
+          <Button onClick={handleClickOpenConnexion} sx={{color: "#00B344"}}>Back</Button>
+          <Button onClick={handleSubscribe} sx={{color: "#00B344"}}>Subscribe</Button>
         </DialogActions>
+        </div>
       </Dialog>
     </>
   );

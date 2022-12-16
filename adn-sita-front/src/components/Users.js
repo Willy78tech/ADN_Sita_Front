@@ -1,25 +1,97 @@
 import React from "react";
+import '../App.css';
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search } from "./Search";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Avatar, { genConfig } from 'react-nice-avatar';
-import "../App.css";
+import {
+  InputBase,
+  styled,
+  alpha,
+  Button,
+  MenuItem,
+  Dialog,
+  Box,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 
+const SearchBox = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
 
 export function Users() {
   const config = genConfig({ sexRandom: "man, woman", hairStyle: "mohawk" });
   const navigate = useNavigate();
-  const [datas, setDatas] = React.useState([]);
+  const [users, setUsers] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!sessionStorage.getItem("token")) {
       navigate(-1);
     }
+  }, [users]);
+
+  useEffect(() => {
+    (async () => {
+      let userDatas;
+      try {
+        const response = await axios.get("/get-users", {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        });
+        userDatas = response.data.users;
+        toast.success("Search Result");
+      } catch (error) {
+        toast.error("Search Error");
+      }
+      setAllUsers(userDatas);
+      setUsers(userDatas);
+      
+    })();
   }, []);
 
-  React.useEffect(() => {
+  /* React.useEffect(() => {
     axios
       .get("/get-users", {
         headers: {
@@ -34,34 +106,51 @@ export function Users() {
       .catch((error) => {
         toast.error("Search Error");
       });
-  }, []);
+  }, []); */
+  const filterCards = event => {
+    const value = event.target.value;
+    const filteredUsers = allUsers.filter(
+      (users) =>
+       (
+        `${users.pseudo} ${users.city} ${users.country}`
+        .toLowerCase()
+        .includes(value.toLowerCase())
+        )
+    );
+    setAllUsers(filteredUsers);
+    console.log(filteredUsers);
+  }
 
   return (
     <>
-      <Box
-        sx={{
-          bgcolor: "#474747",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          p: "2rem",
-        }}
-      >
-        <Search />
-        {datas.map((user) => {
+    <Box sx={{bgcolor: "#474747"}}>
+      <Box sx={{bgcolor: "#474747", width: "300px"}}>
+        <SearchBox sx={{ height: "1" }}>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            id="input"
+            placeholder="Search…"
+            onInput={filterCards}
+          />
+        </SearchBox>
+        </Box>
+        </Box>
+      <div class="users">
+        {allUsers.map((user) => {
           return (
-
-            <div class="card">
-              <div class="card_title">{user.pseudo}</div>
-              <div class="card_body">
-                <p>City: {user.city}</p>
-                <p>Country: {user.country}</p>
-                <div class="card_image"><Avatar style={{ width: '4rem', height: '4rem' }} {...config} /></div>
-              </div>
-            </div>
+              <div class="card">
+                <div class="card_title">{user.pseudo}</div>
+                <div class="card_body">
+                  <p>City: {user.city}</p>
+                  <p>Country: {user.country}</p>
+                  <div class="card_image"><Avatar style={{ width: '4rem', height: '4rem' }} {...config} /></div>
+                </div>
+              </div>  
           )
         })}
-      </Box>
+        </div>
     </>
   );
 }
