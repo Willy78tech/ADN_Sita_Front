@@ -59,11 +59,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
 export function Users() {
   const config = genConfig({ sexRandom: "man, woman", hairStyle: "mohawk" });
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     if (!sessionStorage.getItem("token")) {
@@ -91,22 +93,7 @@ export function Users() {
     })();
   }, []);
 
-  /* React.useEffect(() => {
-    axios
-      .get("/get-users", {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setDatas(res.data.users);
-        toast.success("Search Result");
-      })
-      .catch((error) => {
-        toast.error("Search Error");
-      });
-  }, []); */
+  
   const filterCards = event => {
     const value = event.target.value;
     const filteredUsers = allUsers.filter(
@@ -132,19 +119,41 @@ export function Users() {
           <StyledInputBase
             id="input"
             placeholder="Search…"
-            onInput={filterCards}
+            onChange={filterCards}
           />
         </SearchBox>
         </Box>
         </Box>
       <div class="users">
         {allUsers.map((user) => {
+          function handleClick() {
+            if (sessionStorage.getItem("token")) {
+              navigate("profile");
+              axios
+                .get("/get-user/" + user._id, {
+                  headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+           },
+         })
+         .then((res) => {
+           console.log(res);
+           setUser(res.data.user);
+           toast.success("Profile Loading Success");
+         })
+         .catch((error) => {
+           toast.error("Profile Information Error");
+         });
+     }
+    
+   }
+
           return (
               <div class="card">
                 <div class="card_title">{user.pseudo}</div>
                 <div class="card_body">
                   <p>City: {user.city}</p>
                   <p>Country: {user.country}</p>
+                  <button class="btn" onClick={handleClick}>View Profile</button>
                   <div class="card_image"><Avatar style={{ width: '4rem', height: '4rem' }} {...config} /></div>
                 </div>
               </div>  

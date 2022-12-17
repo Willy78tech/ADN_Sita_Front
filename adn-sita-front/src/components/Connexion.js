@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { validEmail } from './regex.js';
 import '../App.css';
 import {
   Button,
@@ -13,10 +14,22 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+
 export function Connexion({ openConnexion }) {
   const [open, setOpen] = React.useState(false);
   const [openSubs, setOpenSubs] = React.useState(false);
   const navigate = useNavigate();
+  const [email, setEmail] = React.useState('');
+  const [emailErr, setEmailErr] = React.useState('');
+ /*  const validate = () => {
+    if (!validEmail.test(email)) {
+      setEmailErr(true);
+       toast.error("Email is not valid");
+    } else {
+      setEmailErr(false);
+    }
+ }; */
+
 
   React.useEffect(() => {
     setOpen(openConnexion);
@@ -42,6 +55,12 @@ export function Connexion({ openConnexion }) {
 
   const handleSubscribe = () => {
     setOpenSubs(false);
+    if (!validEmail.test(email)) {
+      setEmailErr(true);
+       toast.error("Email is not valid");
+    } else {
+      setEmailErr(false);
+    }
 
     axios
       .post("/signup", {
@@ -64,6 +83,13 @@ export function Connexion({ openConnexion }) {
 
   const handleConnexion = () => {
     setOpen(false);
+    if (!validEmail.test(email)) {
+      setEmailErr(true);
+       toast.error("Email is not valid");
+    } else {
+      setEmailErr(false);
+    }
+     
 
     axios
       .post("/login", {
@@ -105,6 +131,8 @@ export function Connexion({ openConnexion }) {
             type="email"
             fullWidth
             variant="standard"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
             sx={{color: "#00B344"}}
           />
           <TextField
@@ -121,7 +149,7 @@ export function Connexion({ openConnexion }) {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleClickOpenSubscribe}
+            onClick={handleClickOpenSubscribe} 
             sx={{ textDecoration: "underline", fontSize: "0.75rem", color: "#00B344" }}
           >
             No Account?
@@ -157,6 +185,8 @@ export function Connexion({ openConnexion }) {
             type="email"
             fullWidth
             variant="standard"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             autoFocus

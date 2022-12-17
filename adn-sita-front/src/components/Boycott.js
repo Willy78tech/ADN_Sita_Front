@@ -55,11 +55,12 @@ export function Boycott({ boycott }) {
           <MenuBoycott
             boycott={boycott}
             boycottId={boycott._id}
-            reported={boycott.isReport} // Regarder si la condition fonctionne ****************************************
+            reported={boycott.isReport} 
           />
         }
         title={boycott.title}
         subheader={<SubHeader>{formattedDate}</SubHeader>}
+ 
         // color="#ffffff"
       />
       <CardMedia

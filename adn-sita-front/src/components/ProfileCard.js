@@ -18,6 +18,7 @@ export function ProfileCard() {
         city: "",
     });
     const [boycott, setBoycott] = React.useState([]);
+    const [followed, setFollowed] = React.useState([]);
 
     React.useEffect(() => {
         if (!sessionStorage.getItem("token")) {
@@ -61,6 +62,26 @@ export function ProfileCard() {
                 });
         }
     }, []);
+     React.useEffect(() => {
+         if (sessionStorage.getItem("token")) {
+             axios
+                 .get("/get-boycott-followed/" + sessionStorage.getItem("userId"), {
+                     headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                    },
+                })
+                .then((res) => {
+                    console.log(res.data);
+                    setFollowed(res.data.followeds);
+                    toast.success("Follow Success");
+                })
+                .catch((error) => {
+                    toast.error("Follow Error");
+                });
+        }
+    }, []);
+    //      
+
     return (
         <>
             <Box
@@ -85,17 +106,16 @@ export function ProfileCard() {
                     <h2 className="normal-text">{user.city}</h2>
                     <h2 className="normal-text">{user.country}</h2>
                     <div className="social-container">
-                        <div className="followers">
-                            <h1 className="bold-text">80K</h1>
-                            <h2 className="smaller-text">Followers</h2>
+                        <div className="boycotts"> 
+                            <h1>{boycott.length}</h1>
+                            <h2 className="smaller-text">Boycott(s)</h2>
                         </div>
-                        <div className="likes">
-                            <h1 className="bold-text">803K</h1>
-                            <h2 className="smaller-text">Likes</h2>
+                        <div className="follow">
+                            <h1>{followed.length}</h1>
+                            <h2 className="smaller-text">Follow(s)</h2>
                         </div>
-                        <div className="photos">
-                            <h1 className="bold-text">1.4K</h1>
-                            <h2 className="smaller-text">Photos</h2>
+                        <div className="deleteprofile">
+                            <button className="delete">Delete</button>
                         </div>
                     </div>
                 </div>

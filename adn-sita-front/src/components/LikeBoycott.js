@@ -1,17 +1,53 @@
 import React from "react";
 import { IconButton } from "@mui/material";
+import { Boycott } from "./Boycott";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 export function LikeBoycott() {
   const [participation, setParticipation] = React.useState(false);
+  
+   
+  
+    function handleClick() {
+      if ((!participation) && sessionStorage.getItem("token")) {
+    axios
+          .post("/follow-boycott/" + sessionStorage.getItem("userId"), {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            setParticipation(res.data.participations);
+            toast.success("Follow Success");
+          })
+          .catch((error) => {
+            toast.error("Follow Error");
+          });
 
-  React.useEffect(() => {
-    // axios ici avec le setParticipation ********************************
-  }, []);
+    } else {
 
-  function handleClick() {
-    // Fonction temporaire, axios ici ************************************
-    setParticipation(!participation);
-  }
+      axios
+          .post("/unfollow-boycott/" + sessionStorage.getItem("userId"), {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            setParticipation(res.data.participations);
+            toast.success("Unfollow Success");
+          })
+          .catch((error) => {
+            toast.error("Unfollow Error");
+          });
+        }
+      }
+    /* }, [participation]); */
+
+      
+
 
   return (
     <>
@@ -24,4 +60,4 @@ export function LikeBoycott() {
       </IconButton>
     </>
   );
-}
+};

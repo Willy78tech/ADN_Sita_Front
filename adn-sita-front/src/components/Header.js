@@ -10,7 +10,7 @@ export function Header() {
     sessionStorage.getItem("token") ? true : false
   );
 
-  // const connectedTest = sessionStorage.getItem("token") ? true : false;
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
