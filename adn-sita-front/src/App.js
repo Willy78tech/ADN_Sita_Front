@@ -12,7 +12,7 @@ import { ResearchProfile } from "./components/ResearchProfile";
 import axios from "axios";
 
 export default function App() {
-  axios.defaults.baseURL = "http://localhost:3000";
+  axios.defaults.baseURL = "https://adnsita.onrender.com";
 
   return (
     <>

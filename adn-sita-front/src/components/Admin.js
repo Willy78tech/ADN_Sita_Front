@@ -18,7 +18,7 @@ export function Admin() {
 
   React.useEffect(() => {
     if (!sessionStorage.getItem("token") || !admin) {
-      toast.error("criss");
+      /* toast.error("criss"); */
       navigate(-1);
     }
   }, [admin]);
