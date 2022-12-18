@@ -45,7 +45,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -77,43 +76,24 @@ export function Search() {
       }
       setAllUsers(userDatas);
       setUsers(userDatas);
-      
+
     })();
   }, []);
-
-    
-    /* axios
-      .get("/get-users", {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        setDatas(res.data.users);
-        setAllDatas(res.data.users);
-        setOpen(true);
-        toast.success("Search Result");
-      })
-      .catch((error) => {
-        toast.error("Search Error");
-      });
-  } , []);
- */
   const filterCards = event => {
     const value = event.target.value;
     const filteredUsers = allUsers.filter(
       (user) =>
-       ( user.city.toLowerCase().includes(value.toLowerCase()) ||
+      (user.city.toLowerCase().includes(value.toLowerCase()) ||
         user.pseudo.toLowerCase().includes(value.toLowerCase()) ||
         user.country.toLowerCase().includes(value.toLowerCase())
-        )
+      )
     );
     setAllUsers(filteredUsers);
     console.log(filteredUsers);
   }
   return (
     <>
-      <Box sx={{display: "flex"}}>
+      <Box sx={{ display: "flex" }}>
         <SearchBox sx={{ height: "1" }}>
           <SearchIconWrapper>
             <SearchIcon />
@@ -124,28 +104,7 @@ export function Search() {
             onInput={filterCards}
           />
         </SearchBox>
-        
-        {/* <Button variant="contained" color="success" onClick={handleSearch}>
-          Search
-        </Button> */}
       </Box>
-      {/* <Dialog onClose={handleClose} open={open}>
-        {datas.map((user) => {
-          return user.city == searchInput ||
-            user.pseudo == searchInput ||
-            user.country == searchInput ? (
-            <MenuItem
-              key={user._id}
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavigate(user._id);
-              }}
-            >
-              {user.pseudo}
-            </MenuItem>
-          ) : null;
-        })}
-      </Dialog> */}
     </>
   );
 }

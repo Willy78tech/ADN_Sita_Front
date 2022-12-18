@@ -11,7 +11,6 @@ export function Home() {
     axios
       .get("/get-boycotts")
       .then((res) => {
-        // console.log(res.data.boycott);
         setBoycotts(res.data.boycott);
         toast.success("Get Boycotts Home");
       })

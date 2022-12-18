@@ -9,6 +9,7 @@ export function MenuBoycott({ boycott, boycottId, reported }) {
   const [admin, setAdmin] = React.useState(false);
   const [creator, setCreator] = React.useState(boycott.userId._id == sessionStorage.getItem("userId") ? true : false);
 
+
   React.useEffect(() => {
     console.log(creator)
     axios
@@ -23,14 +24,7 @@ export function MenuBoycott({ boycott, boycottId, reported }) {
       .then((res) => {
         if (res.data.user.isAdmin === true) {
           setAdmin(true);
-          // console.log(reported)
-          // toast.success("Is Admin For Menu");
-        } else {
-          // toast.success("Is Not Admin For Menu");
         }
-      })
-      .catch((error) => {
-        // toast.error("Admin Check Error");
       });
   }, []);
 
@@ -89,7 +83,7 @@ export function MenuBoycott({ boycott, boycottId, reported }) {
         toast.error("Boycott Not Deleted");
       });
   }
-
+  console.log(handleReport.length)
   return (
     <div>
       <IconButton aria-label="settings" onClick={handleMenu}>
@@ -116,7 +110,6 @@ export function MenuBoycott({ boycott, boycottId, reported }) {
         {admin || creator ? (
           <MenuItem onClick={handleDelete}>Delete</MenuItem>
         ) : null}
-        {/* {creator ? <MenuItem onClick={handleClose}>Modify</MenuItem> : null} */}
         {!admin && !creator && !reported && sessionStorage.getItem("token") ? (
           <MenuItem onClick={handleReport}>Report</MenuItem>
         ) : null}

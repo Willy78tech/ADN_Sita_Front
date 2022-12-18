@@ -6,7 +6,6 @@ import { Box, Button, TextField } from "@mui/material";
 // import image from "../img/logo.png";
 
 export function CreateBoycott() {
-  // var formData = new FormData();
   const navigate = useNavigate();
 
   const [title, setTitle] = React.useState("");
@@ -62,8 +61,6 @@ export function CreateBoycott() {
   return (
     <>
       <Box
-        // component="form"
-        // onSubmit={handleSubmit}
         sx={{
           "& .MuiTextField-root": { m: 1, width: "25ch" },
           bgcolor: "#474747",
@@ -72,7 +69,6 @@ export function CreateBoycott() {
           flexDirection: "column",
           alignItems: "center",
         }}
-        // noValidate
         autoComplete="off"
       >
         <TextField label="Title" id="title" onChange={handleTitle} />
@@ -86,7 +82,6 @@ export function CreateBoycott() {
         />
         <TextField multiline maxRows={4} label="Description" id="description" onChange={handleDescription} />
         <input type="file" onChange={handleFile} />
-        {/* <TextField type="file" helperText="Image *" id="file" onChange={handleFile}/> */}
         <Button onClick={handleSubmit}>Publish</Button>
       </Box>
     </>

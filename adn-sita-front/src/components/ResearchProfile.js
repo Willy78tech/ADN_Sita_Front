@@ -16,7 +16,6 @@ export function ResearchProfile() {
   const params = useParams();
 
   useEffect(() => {
-    // console.log("datas here : " + datas)
     axios
       .get(`/get-user/${params.id}`, {
         headers: {
@@ -24,7 +23,6 @@ export function ResearchProfile() {
         },
       })
       .then((res) => {
-        console.log(res);
         setUser(res.data.user);
         toast.success("Profile Loading Success");
       })
@@ -51,9 +49,6 @@ export function ResearchProfile() {
         });
     }
   }, []);
-
-  // if (!user) return <CircularProgress />;
-
   return (
     <Box
       sx={{

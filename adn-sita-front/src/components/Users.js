@@ -49,7 +49,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -89,77 +88,90 @@ export function Users() {
       }
       setAllUsers(userDatas);
       setUsers(userDatas);
-      
+
     })();
   }, []);
 
-  
+  React.useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      axios
+        .get("/get-user/" + sessionStorage.getItem("userId"), {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setUser(res.data.user);
+          toast.success("Profile Loading Success");
+        })
+        .catch((error) => {
+          toast.error("Profile Information Error");
+        });
+    }
+  }, []);
+
+
   const filterCards = event => {
     const value = event.target.value;
     const filteredUsers = allUsers.filter(
       (users) =>
-       (
+      (
         `${users.pseudo} ${users.city} ${users.country}`
-        .toLowerCase()
-        .includes(value.toLowerCase())
-        )
+          .toLowerCase()
+          .includes(value.toLowerCase())
+      )
     );
     setAllUsers(filteredUsers);
     console.log(filteredUsers);
   }
 
+
   return (
     <>
-    <Box sx={{bgcolor: "#474747"}}>
-      <Box sx={{bgcolor: "#474747", width: "300px"}}>
-        <SearchBox sx={{ height: "1" }}>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            id="input"
-            placeholder="Search…"
-            onChange={filterCards}
-          />
-        </SearchBox>
+      <Box sx={{ bgcolor: "#474747" }}>
+        <Box sx={{ bgcolor: "#474747", width: "300px" }}>
+          <SearchBox sx={{ height: "1" }}>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              id="input"
+              placeholder="Search…"
+              onChange={filterCards}
+            />
+          </SearchBox>
         </Box>
-        </Box>
+      </Box>
       <div class="users">
         {allUsers.map((user) => {
           function handleClick() {
-            if (sessionStorage.getItem("token")) {
-              navigate("profile");
-              axios
-                .get("/get-user/" + user._id, {
-                  headers: {
-                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-           },
-         })
-         .then((res) => {
-           console.log(res);
-           setUser(res.data.user);
-           toast.success("Profile Loading Success");
-         })
-         .catch((error) => {
-           toast.error("Profile Information Error");
-         });
-     }
-    
-   }
+            sessionStorage.setItem("userId", user._id);
+            navigate("/profile");
+            axios
+              .get("/get-user/" + sessionStorage.getItem("userId"), {
+              })
+              .then((res) => {
+                console.log(res);
+                setUser(res.data.user);
+              })
+            console.log(user);
+          }
+
 
           return (
-              <div class="card">
-                <div class="card_title">{user.pseudo}</div>
-                <div class="card_body">
-                  <p>City: {user.city}</p>
-                  <p>Country: {user.country}</p>
-                  <button class="btn" onClick={handleClick}>View Profile</button>
-                  <div class="card_image"><Avatar style={{ width: '4rem', height: '4rem' }} {...config} /></div>
-                </div>
-              </div>  
+            <div class="card">
+              <div class="card_title">{user.pseudo}</div>
+              <div class="card_body">
+                <p>City: {user.city}</p>
+                <p>Country: {user.country}</p>
+                <button class="btn" onClick={handleClick}>View Profile</button>
+                <div class="card_image"><Avatar style={{ width: '4rem', height: '4rem' }} {...config} /></div>
+              </div>
+            </div>
           )
         })}
-        </div>
+      </div>
     </>
   );
 }

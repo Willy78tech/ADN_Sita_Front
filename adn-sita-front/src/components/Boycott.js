@@ -2,6 +2,7 @@ import * as React from "react";
 import { format } from "date-fns";
 import { MenuBoycott } from "./MenuBoycott";
 import { Comment } from "./Comment";
+import axios from "axios";
 import {
   Card,
   CardHeader,
@@ -37,6 +38,8 @@ const SubHeader = styled(Card)(({ theme }) => ({
 
 export function Boycott({ boycott }) {
   const [expanded, setExpanded] = React.useState(false);
+  const [reports, setReports] = React.useState([]);
+
 
   const date = new Date(boycott.createdAt);
   const formattedDate = format(date, "dd/MM/yyyy HH:mm");
@@ -45,23 +48,24 @@ export function Boycott({ boycott }) {
     setExpanded(!expanded);
   };
 
+
+
   return (
     <Card
       sx={{ width: "40vw", bgcolor: "#1e1e1e", color: "#ffffff", mb: "5vh" }}
     >
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: "#00b440" }} aria-label="recipe" />}
+
         action={
           <MenuBoycott
             boycott={boycott}
             boycottId={boycott._id}
-            reported={boycott.isReport} 
+            reported={boycott.isReport}
           />
         }
         title={boycott.title}
         subheader={<SubHeader>{formattedDate}</SubHeader>}
- 
-        // color="#ffffff"
       />
       <CardMedia
         component="img"

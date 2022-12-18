@@ -5,12 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { Boycott } from "./Boycott";
 import { Box } from "@mui/material";
 import "../App.css";
+import { Users } from "./Users";
 
 
 export function Admin() {
   const navigate = useNavigate();
   const [boycotts, setBoycotts] = React.useState([]);
   const [admin, setAdmin] = React.useState(true);
+  const [allUsers, setAllUsers] = React.useState([]);
+  const [users, setUsers] = React.useState([]);
+  const [allBoycotts, setTotalBoycotts] = React.useState([]);
 
   React.useEffect(() => {
     if (!sessionStorage.getItem("token") || !admin) {
@@ -18,6 +22,26 @@ export function Admin() {
       navigate(-1);
     }
   }, [admin]);
+
+  React.useEffect(() => {
+    (async () => {
+      let userDatas;
+      try {
+        const response = await axios.get("/get-users", {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        });
+        userDatas = response.data.users;
+        toast.success("Search Result");
+      } catch (error) {
+        toast.error("Search Error");
+      }
+      setAllUsers(userDatas);
+      setUsers(userDatas);
+
+    })();
+  }, []);
 
   React.useEffect(() => {
     axios
@@ -54,6 +78,19 @@ export function Admin() {
       });
   }, []);
 
+  React.useEffect(() => {
+    axios
+      .get("/get-boycotts")
+      .then((res) => {
+        // console.log(res.data.boycott);
+        setTotalBoycotts(res.data.boycott);
+        toast.success("Get Boycotts Home");
+      })
+      .catch((error) => {
+        toast.error("Get Boycotts Home");
+      });
+  }, []);
+
   return (
     <>
       <Box
@@ -81,18 +118,18 @@ export function Admin() {
               <div class="card_title_admin">New Users</div>
               <div class="card_body">
                 <p>2,356</p>
-                <p><span> 3.48%</span></p>
-                <p>Since last week</p>
+                <p><span> 3.48%... Since last week</span></p>
+                <p><span class="reported"> {users.length}</span> User(s) in Total</p>
               </div>
             </div>
           </Box>
           <Box>
             <div class="card">
-              <div class="card_title_admin">Sales</div>
+              <div class="card_title_admin">Activities</div>
               <div class="card_body">
                 <p>924</p>
-                <p><span> 1.10%</span></p>
-                <p>Since yesterday</p>
+                <p><span> 1.10%... Since yesterday</span></p>
+                <p><span class="reported"> {allBoycotts.length}</span> Boycott(s) in Total</p>
               </div>
             </div>
           </Box>
@@ -101,8 +138,8 @@ export function Admin() {
               <div class="card_title_admin">Performance</div>
               <div class="card_body">
                 <p>49,65%</p>
-                <p><span> 12%</span></p>
-                <p>Since last month</p>
+                <p><span> 12%... Since last month</span></p>
+                <p><span>Since last month</span></p>
               </div>
             </div>
           </Box>

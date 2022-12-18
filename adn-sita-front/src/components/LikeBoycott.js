@@ -1,54 +1,47 @@
 import React from "react";
 import { IconButton } from "@mui/material";
 import { Boycott } from "./Boycott";
+import { Home } from "./Home";
 import toast from "react-hot-toast";
 import axios from "axios";
 
-export function LikeBoycott() {
+export function LikeBoycott(boycottId) {
   const [participation, setParticipation] = React.useState(false);
-  
-   
-  
-    function handleClick() {
-      if ((!participation) && sessionStorage.getItem("token")) {
-    axios
-          .post("/follow-boycott/" + sessionStorage.getItem("userId"), {
-            headers: {
-              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-            },
-          })
-          .then((res) => {
-            console.log(res.data);
-            setParticipation(res.data.participations);
-            toast.success("Follow Success");
-          })
-          .catch((error) => {
-            toast.error("Follow Error");
-          });
 
-    } else {
 
+
+  function handleClick() {
+    if (participation) {
       axios
-          .post("/unfollow-boycott/" + sessionStorage.getItem("userId"), {
-            headers: {
-              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-            },
-          })
-          .then((res) => {
-            console.log(res.data);
-            setParticipation(res.data.participations);
-            toast.success("Unfollow Success");
-          })
-          .catch((error) => {
-            toast.error("Unfollow Error");
-          });
-        }
-      }
-    /* }, [participation]); */
-
-      
-
-
+        .post("/unfollow-boycott/" + boycottId, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setParticipation(false);
+          toast.success("Boycott Unliked");
+        })
+        .catch((error) => {
+          toast.error("Boycott Not Unliked");
+        });
+    } else {
+      axios
+        .post("/follow-boycott/" + sessionStorage.getItem({ boycottId }), {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          setParticipation(true);
+          toast.success("Boycott Liked");
+        })
+        .catch((error) => {
+          toast.error("Boycott Not Liked");
+        });
+    }
+  }
   return (
     <>
       <IconButton aria-label="add to favorites" onClick={handleClick}>

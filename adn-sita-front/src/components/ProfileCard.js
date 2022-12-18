@@ -6,7 +6,8 @@ import { Boycott } from "./Boycott";
 import { Box } from "@mui/material";
 import "../App.css";
 import Avatar, { genConfig } from 'react-nice-avatar';
-import avatar from "../images/image-rita.png";
+/* import avatar from "../images/image-rita.png"; */
+import avatar from "../images/boycott.jpeg";
 
 export function ProfileCard() {
     const config = genConfig({ sexRandom: "man, woman", hairStyle: "mohawk" });
@@ -55,33 +56,39 @@ export function ProfileCard() {
                 .then((res) => {
                     console.log(res.data);
                     setBoycott(res.data.boycotts);
-                    toast.success("Boycott Created Success");
                 })
-                .catch((error) => {
-                    toast.error("Boycott Created Error");
-                });
         }
     }, []);
-     React.useEffect(() => {
-         if (sessionStorage.getItem("token")) {
-             axios
-                 .get("/get-boycott-followed/" + sessionStorage.getItem("userId"), {
-                     headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    React.useEffect(() => {
+        if (sessionStorage.getItem("token")) {
+            axios
+                .get("/get-boycott-followed/" + sessionStorage.getItem("userId"), {
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
                     },
                 })
                 .then((res) => {
                     console.log(res.data);
-                    setFollowed(res.data.followeds);
-                    toast.success("Follow Success");
+                    setFollowed(res.data.followers);
                 })
-                .catch((error) => {
-                    toast.error("Follow Error");
-                });
         }
     }, []);
-    //      
 
+    function handleDelete(id) {
+        axios
+            .delete("/delete-user/" + sessionStorage.getItem("userId"), {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then((res) => {
+                toast.success("Profile Deleted");
+                navigate("/");
+            })
+            .catch((error) => {
+                toast.error("Profile Deletion Error");
+            });
+    }
     return (
         <>
             <Box
@@ -96,7 +103,6 @@ export function ProfileCard() {
             >
                 <div className="card-container">
                     <header class="header_profile">
-                        {/* <Avatar class="image_profile" style={{ width: '20rem', height: '20rem' }} {...config} /> */}
                         <img class="image_profile" src={avatar} alt="photo de profile" />
                     </header>
                     <h1 className="bold-text">
@@ -106,7 +112,7 @@ export function ProfileCard() {
                     <h2 className="normal-text">{user.city}</h2>
                     <h2 className="normal-text">{user.country}</h2>
                     <div className="social-container">
-                        <div className="boycotts"> 
+                        <div className="boycotts">
                             <h1>{boycott.length}</h1>
                             <h2 className="smaller-text">Boycott(s)</h2>
                         </div>
@@ -115,7 +121,7 @@ export function ProfileCard() {
                             <h2 className="smaller-text">Follow(s)</h2>
                         </div>
                         <div className="deleteprofile">
-                            <button className="delete">Delete</button>
+                            <button className="delete" onClick={handleDelete}>Delete</button>
                         </div>
                     </div>
                 </div>

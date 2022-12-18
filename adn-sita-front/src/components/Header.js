@@ -20,7 +20,7 @@ export function Header() {
             {sessionStorage.getItem("token") ? <BurgerMenu /> : null}
             {/* <Search /> */}
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center"}}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <img src="img/logo.png" alt="Logo" height="80vh"></img>
             <Typography
               variant="h1"

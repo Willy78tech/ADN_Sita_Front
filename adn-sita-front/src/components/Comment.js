@@ -7,7 +7,6 @@ export function Comment({ boycott }) {
   const [comments, setComments] = React.useState([]);
 
   React.useEffect(() => {
-    // console.log(boycott);
     axios
       .get("/get-boycott/" + boycott._id, {
         headers: {
@@ -47,7 +46,6 @@ export function Comment({ boycott }) {
   }
 
   function handleDelete(id) {
-    // console.log(id);
     axios
       .delete(
         "/delete-comment/" + id,
@@ -82,7 +80,6 @@ export function Comment({ boycott }) {
         <Box key={comment._id}>
           <Typography paragraph>
             {comment.comment}
-            {/* {comment.userId._id} */}
             {comment.userId._id == sessionStorage.getItem("userId") ? (
               <Button
                 onClick={(e) => {

@@ -21,14 +21,14 @@ export function Connexion({ openConnexion }) {
   const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
   const [emailErr, setEmailErr] = React.useState('');
- /*  const validate = () => {
+  const validate = () => {
     if (!validEmail.test(email)) {
       setEmailErr(true);
-       toast.error("Email is not valid");
+      toast.error("Email is not valid");
     } else {
       setEmailErr(false);
     }
- }; */
+  };
 
 
   React.useEffect(() => {
@@ -55,12 +55,7 @@ export function Connexion({ openConnexion }) {
 
   const handleSubscribe = () => {
     setOpenSubs(false);
-    if (!validEmail.test(email)) {
-      setEmailErr(true);
-       toast.error("Email is not valid");
-    } else {
-      setEmailErr(false);
-    }
+    validate();
 
     axios
       .post("/signup", {
@@ -83,13 +78,8 @@ export function Connexion({ openConnexion }) {
 
   const handleConnexion = () => {
     setOpen(false);
-    if (!validEmail.test(email)) {
-      setEmailErr(true);
-       toast.error("Email is not valid");
-    } else {
-      setEmailErr(false);
-    }
-     
+    validate();
+
 
     axios
       .post("/login", {
@@ -109,136 +99,135 @@ export function Connexion({ openConnexion }) {
       .catch(error => {
         toast.error("Connexion Error")
       });
-
-      navigate("/")
+    navigate("/")
   };
 
   return (
     <>
       <Dialog open={open} onClose={handleClickCloseConnexion}>
-      <div class="connexion">
-        <DialogTitle>Connexion</DialogTitle>
-        <DialogContent sx={{bgcolor: "#fff"}}>
-          <DialogContentText>
-            Enter your account information here.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="email"
-            name="email"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            sx={{color: "#00B344"}}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="password"
-            name="password"
-            label="Password"
-            type="password"
-            fullWidth
-            variant="standard"
-            sx={{color: "#00B344"}}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={handleClickOpenSubscribe} 
-            sx={{ textDecoration: "underline", fontSize: "0.75rem", color: "#00B344" }}
-          >
-            No Account?
-          </Button>
-        </DialogActions>
-        <DialogActions>
-          <Button onClick={handleClickCloseConnexion} sx={{color: "#00B344"}}>Cancel</Button>
-          <Button onClick={handleConnexion} sx={{color: "#00B344"}}>Connect</Button>
-        </DialogActions>
+        <div class="connexion">
+          <DialogTitle>Connexion</DialogTitle>
+          <DialogContent sx={{ bgcolor: "#fff" }}>
+            <DialogContentText>
+              Enter your account information here.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="email"
+              name="email"
+              label="Email Address"
+              type="email"
+              fullWidth
+              variant="standard"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              sx={{ color: "#00B344" }}
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              fullWidth
+              variant="standard"
+              sx={{ color: "#00B344" }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={handleClickOpenSubscribe}
+              sx={{ textDecoration: "underline", fontSize: "0.75rem", color: "#00B344" }}
+            >
+              No Account?
+            </Button>
+          </DialogActions>
+          <DialogActions>
+            <Button onClick={handleClickCloseConnexion} sx={{ color: "#00B344" }}>Cancel</Button>
+            <Button onClick={handleConnexion} sx={{ color: "#00B344" }}>Connect</Button>
+          </DialogActions>
         </div>
       </Dialog>
       <Dialog open={openSubs} onClose={handleClickCloseSubscribe}>
         <div class="connexion">
-        <DialogTitle>Subscription</DialogTitle>
-        <DialogContent sx={{bgcolor: "#fff"}}>
-          <DialogContentText>
-            Enter your new account information here.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="pseudoSub"
-            label="Pseudo"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="emailSub"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="citySub"
-            label="City"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="countrySub"
-            label="Country"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="quoteSub"
-            label="Quote"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="passwordSub"
-            label="Password"
-            type="password"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="confirmPasswordSub"
-            label="Confirm Password"
-            type="password"
-            fullWidth
-            variant="standard"
-            sx={{color: "#00B344"}}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClickOpenConnexion} sx={{color: "#00B344"}}>Back</Button>
-          <Button onClick={handleSubscribe} sx={{color: "#00B344"}}>Subscribe</Button>
-        </DialogActions>
+          <DialogTitle>Subscription</DialogTitle>
+          <DialogContent sx={{ bgcolor: "#fff" }}>
+            <DialogContentText>
+              Enter your new account information here.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="pseudoSub"
+              label="Pseudo"
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="emailSub"
+              label="Email Address"
+              type="email"
+              fullWidth
+              variant="standard"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="citySub"
+              label="City"
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="countrySub"
+              label="Country"
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="quoteSub"
+              label="Quote"
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="passwordSub"
+              label="Password"
+              type="password"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="confirmPasswordSub"
+              label="Confirm Password"
+              type="password"
+              fullWidth
+              variant="standard"
+              sx={{ color: "#00B344" }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClickOpenConnexion} sx={{ color: "#00B344" }}>Back</Button>
+            <Button onClick={handleSubscribe} sx={{ color: "#00B344" }}>Subscribe</Button>
+          </DialogActions>
         </div>
       </Dialog>
     </>

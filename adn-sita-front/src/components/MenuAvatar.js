@@ -9,7 +9,7 @@ export function MenuAvatar() {
   const navigate = useNavigate();
 
   function handleClick() {
-    if(sessionStorage.getItem("token")) {
+    if (sessionStorage.getItem("token")) {
       navigate("profile");
     } else {
       setOpen(!open);
