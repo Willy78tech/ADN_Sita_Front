@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-export function MenuBoycott({ boycott, boycottId, reported }) {
+export function MenuBoycott({ boycott, boycottId, reported, reports }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [admin, setAdmin] = React.useState(false);
   const [creator, setCreator] = React.useState(boycott.userId._id == sessionStorage.getItem("userId") ? true : false);
@@ -104,6 +104,9 @@ export function MenuBoycott({ boycott, boycottId, reported }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        {admin && reported ? (
+          <MenuItem sx={{color: "red", cursor: "default"}}>{reports} report</MenuItem>
+        ) : null}
         {admin && reported ? (
           <MenuItem onClick={handleUnreport}>Unreport</MenuItem>
         ) : null}
