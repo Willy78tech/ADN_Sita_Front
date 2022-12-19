@@ -66,22 +66,34 @@ export function Comment({ boycott }) {
 
   return (
     <>
-      <Box>
-        <TextField
-          id="commentInput"
-          label="New Comment"
-          variant="filled"
-          multiline
-          rows={2}
-        />
-        <Button onClick={handleClick}>Send Comment</Button>
-      </Box>
+      <div class="comment-box">
+        <Box>
+          <div class="comment-text">
+            <TextField
+              sx={{
+                label: { color: "#00b344" },
+                input: { color: "#ffffff", width: "36rem" },
+              }}
+              id="commentInput"
+              label="New Comment"
+              variant="filled"
+              color="success"
+              focused
+              rows={2}
+            />
+            <Button onClick={handleClick} class="comment-btn">
+              Send Comment
+            </Button>
+          </div>
+        </Box>
+      </div>
       {comments.map((comment) => (
-        <Box key={comment._id}>
+        <Box key={comment._id} sx={{paddingTop:"1rem"}}>
           <Typography paragraph>
             {comment.comment}
+            {/* {comment.userId._id} */}
             {comment.userId._id == sessionStorage.getItem("userId") ? (
-              <Button
+              <Button class="delete-btn"
                 onClick={(e) => {
                   e.preventDefault();
                   handleDelete(comment._id);

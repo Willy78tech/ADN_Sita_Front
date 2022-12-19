@@ -108,9 +108,9 @@ export function Connexion({ openConnexion }) {
         <div class="connexion">
           <DialogTitle>Connexion</DialogTitle>
           <DialogContent sx={{ bgcolor: "#fff" }}>
-            <DialogContentText>
+            <DialogContentText sx={{paddingTop: "1.2rem"}}>
               Enter your account information here.
-            </DialogContentText>
+            </DialogContentText >
             <TextField
               autoFocus
               margin="dense"
@@ -154,7 +154,7 @@ export function Connexion({ openConnexion }) {
         <div class="connexion">
           <DialogTitle>Subscription</DialogTitle>
           <DialogContent sx={{ bgcolor: "#fff" }}>
-            <DialogContentText>
+            <DialogContentText sx={{paddingTop: "1.2rem"}}>
               Enter your new account information here.
             </DialogContentText>
             <TextField
@@ -165,17 +165,6 @@ export function Connexion({ openConnexion }) {
               type="text"
               fullWidth
               variant="standard"
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="emailSub"
-              label="Email Address"
-              type="email"
-              fullWidth
-              variant="standard"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               autoFocus
@@ -204,6 +193,17 @@ export function Connexion({ openConnexion }) {
               fullWidth
               variant="standard"
             />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="emailSub"
+                label="Email Address"
+                type="email"
+                fullWidth
+                variant="standard"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             <TextField
               autoFocus
               margin="dense"
