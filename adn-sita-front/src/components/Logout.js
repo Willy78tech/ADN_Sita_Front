@@ -13,6 +13,7 @@ export function Logout() {
       sessionStorage.clear();
       toast.success("Logout Successful");
       navigate("/");
+      window.location.reload();
     } else {
       toast.error("Already Logout");
     }
