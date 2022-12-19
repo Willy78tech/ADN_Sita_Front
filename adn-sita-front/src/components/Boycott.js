@@ -81,7 +81,7 @@ export function Boycott({ boycott }) {
       <CardActions disableSpacing>
         <LikeBoycott boycott={boycott}/>
         <IconButton aria-label="share">
-          <ShareIcon sx={{ color: "white" }} />
+          <ShareIcon sx={{ color: "#00b344" }} />
         </IconButton>
         <ExpandMore
           expand={expanded}

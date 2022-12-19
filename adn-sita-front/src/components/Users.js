@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useReducer} from "react";
 import '../App.css';
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -65,6 +65,7 @@ export function Users() {
   const [users, setUsers] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [user, setUser] = useState([]);
+  const [reducerValue, forceUpdate] = useReducer(x => x + 1, 0)
 
   useEffect(() => {
     if (!sessionStorage.getItem("token")) {
@@ -82,7 +83,9 @@ export function Users() {
           },
         });
         userDatas = response.data.users;
+      
         toast.success("Search Result");
+        
       } catch (error) {
         toast.error("Search Error");
       }
@@ -91,6 +94,9 @@ export function Users() {
 
     })();
   }, []);
+
+
+  
 
   React.useEffect(() => {
     if (sessionStorage.getItem("token")) {
@@ -120,17 +126,19 @@ export function Users() {
         `${users.pseudo} ${users.city} ${users.country}`
           .toLowerCase()
           .includes(value.toLowerCase())
+          
       )
     );
+    forceUpdate();
     setAllUsers(filteredUsers);
-    console.log(filteredUsers);
+    
   }
 
 
   return (
     <>
       <Box sx={{ bgcolor: "#474747" }}>
-        <Box sx={{ bgcolor: "#474747", width: "300px" }}>
+        <Box sx={{ bgcolor: "#474747", width: "300px", marginTop:"1rem" }}>
           <SearchBox sx={{ height: "1" }}>
             <SearchIconWrapper>
               <SearchIcon />
@@ -155,18 +163,17 @@ export function Users() {
                 console.log(res);
                 setUser(res.data.user);
               })
-            console.log(user);
           }
 
 
           return (
             <div class="card">
-              <div class="card_title">{user.pseudo}</div>
+              <div class="card_title" style={{ color: "#00b344"}}>{user.pseudo}</div>
               <div class="card_body">
+                <div class="card_image"><Avatar class="avatar" style={{ width: '4rem', height: '4rem'}}  /></div>
                 <p>City: {user.city}</p>
                 <p>Country: {user.country}</p>
                 <button class="btn" onClick={handleClick}>View Profile</button>
-                <div class="card_image"><Avatar style={{ width: '4rem', height: '4rem' }} {...config} /></div>
               </div>
             </div>
           )

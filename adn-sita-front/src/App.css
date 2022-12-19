@@ -39,6 +39,7 @@ body {
 .card_image {
   display: flex;
   justify-content: flex-end;
+  
 }
 
 .reported {
@@ -54,12 +55,12 @@ body {
 
 .card-container {
   background-color: black;
-  min-width: 350px;
-  max-width: 800px;
   height: auto;
   border-radius: 14px;
   box-shadow: #00b344;
   margin-bottom: 1rem;
+  width: 41.5%;
+
 }
 
 .header_profile {
@@ -69,6 +70,7 @@ body {
   text-align: center;
   border-top-left-radius: 14px;
   border-top-right-radius: 14px;
+  position:relative;
 }
 
 .image_profile {
@@ -150,15 +152,12 @@ body {
 }
 
 .delete {
-  background-color: #ff0000;
-  color: white;
+  background-color: #000;
+  color:#00b440;
   border: none;
   padding: 10px 20px;
-  margin-top: 25px;
-  margin-right: 4px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  margin-top: 1rem;
+  display: flex;
   font-size: 16px;
   cursor: pointer;
   border-radius: 12px;
@@ -226,3 +225,17 @@ input {
 	height: 12%;
 	margin-left: 2rem;
 }
+
+.city-country {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.city-country p {
+	align-items: center;
+	text-decoration: underline;
+	color: #00B344;
+	text-align: center;
+}
+

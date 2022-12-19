@@ -17,6 +17,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import CreateIcon from "@mui/icons-material/Create";
 import MenuIcon from "@mui/icons-material/Menu";
 import GroupIcon from "@mui/icons-material/Group";
+import { Height } from "@mui/icons-material";
 
 export function BurgerMenu() {
   const [open, setOpen] = React.useState(false);
@@ -98,27 +99,30 @@ export function BurgerMenu() {
         sx={{
           display: { xs: "none", sm: "block" },
           "& .MuiDrawer-paper": { boxSizing: "border-box" },
+          
         }}
       >
         <Box
           role="presentation"
           onClick={toggleDrawer("left", false)}
           onKeyDown={toggleDrawer("left", false)}
+          sx= {{backgroundColor: "#000000", display: "flex", flexDirection:"column", height:"100%"}}
+          
         >
-          <List open={open}>
+          <List open={open} >
             {itemslist.map((item, index) => {
               const { text, icon, onclick } = item;
               return (
                 <ListItemButton key={text} onClick={onclick}>
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemIcon sx={{color:"#00b344"}}>{icon}</ListItemIcon>
+                  <ListItemText primary={text} sx={{color:"#00b344"}} />
                 </ListItemButton>
               );
             })}
             {admin ? (
-              <ListItemButton onClick={() => navigate("admin")}>
-                <ListItemIcon><AdminPanelSettingsIcon /></ListItemIcon>
-                <ListItemText primary={"Admin"} />
+              <ListItemButton onClick={() => navigate("admin")} sx={{color:"#00b344"}}>
+                <ListItemIcon sx={{color:"#00b344"}}><AdminPanelSettingsIcon /></ListItemIcon>
+                <ListItemText primary={"Admin"} sx={{color:"#00b344"}} />
               </ListItemButton>
             ) : null}
           </List>

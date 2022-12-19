@@ -92,7 +92,7 @@ export function Comment({ boycott }) {
           <Typography paragraph>
             {comment.comment}
             {/* {comment.userId._id} */}
-            {comment.userId._id == sessionStorage.getItem("userId") ? (
+            {comment.userId._id === sessionStorage.getItem("userId") ? (
               <Button class="delete-btn"
                 onClick={(e) => {
                   e.preventDefault();
