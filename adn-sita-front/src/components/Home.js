@@ -3,11 +3,17 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { Boycott } from "./Boycott";
 import { Box } from "@mui/material";
+import { Navigate } from "react-router-dom";
+
 
 export function Home() {
+  if (window.location.href.includes("localhost:3000/confirmed")) {
+    sessionStorage.clear();
+    toast.success("account actived, please login");
+    Navigate("/")
+  }
   const [boycotts, setBoycotts] = React.useState([]);
-
-  React.useEffect(() => {
+  React.useEffect(() => { 
     axios
       .get("/get-boycotts")
       .then((res) => {

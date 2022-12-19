@@ -70,6 +70,7 @@ export function Connexion({ openConnexion }) {
       .then((response) => {
         console.log(response);
         toast.success("Subscription Completed");
+        toast.success("Please confirm your account")
       })
       .catch(error => {
         toast.error("Subscription Error")
