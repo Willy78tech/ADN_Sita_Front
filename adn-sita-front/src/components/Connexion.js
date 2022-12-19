@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { validEmail } from './regex.js';
-import '../App.css';
+import { validEmail } from "./regex.js";
+import "../App.css";
 import {
   Button,
   TextField,
@@ -14,13 +14,12 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-
 export function Connexion({ openConnexion }) {
   const [open, setOpen] = React.useState(false);
   const [openSubs, setOpenSubs] = React.useState(false);
   const navigate = useNavigate();
-  const [email, setEmail] = React.useState('');
-  const [emailErr, setEmailErr] = React.useState('');
+  const [email, setEmail] = React.useState("");
+  const [emailErr, setEmailErr] = React.useState("");
   const validate = () => {
     if (!validEmail.test(email)) {
       setEmailErr(true);
@@ -29,7 +28,6 @@ export function Connexion({ openConnexion }) {
       setEmailErr(false);
     }
   };
-
 
   React.useEffect(() => {
     setOpen(openConnexion);
@@ -72,15 +70,14 @@ export function Connexion({ openConnexion }) {
         toast.success("Subscription Completed");
         toast.success("Please confirm your account")
       })
-      .catch(error => {
-        toast.error("Subscription Error")
+      .catch((error) => {
+        toast.error("Subscription Error");
       });
   };
 
   const handleConnexion = () => {
     setOpen(false);
     validate();
-
 
     axios
       .post("/login", {
@@ -93,14 +90,15 @@ export function Connexion({ openConnexion }) {
           sessionStorage.setItem("userId", response.data.userId);
           sessionStorage.setItem("token", response.data.token);
           toast.success("You Are Connected");
+          window.location.reload();
         } else {
           toast.error("Connexion Error");
         }
       })
-      .catch(error => {
-        toast.error("Connexion Error")
+      .catch((error) => {
+        toast.error("Connexion Error");
       });
-    navigate("/")
+      navigate("/");
   };
 
   return (
@@ -109,9 +107,9 @@ export function Connexion({ openConnexion }) {
         <div class="connexion">
           <DialogTitle>Connexion</DialogTitle>
           <DialogContent sx={{ bgcolor: "#fff" }}>
-            <DialogContentText sx={{paddingTop: "1.2rem"}}>
+            <DialogContentText sx={{ paddingTop: "1.2rem" }}>
               Enter your account information here.
-            </DialogContentText >
+            </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
@@ -122,7 +120,7 @@ export function Connexion({ openConnexion }) {
               fullWidth
               variant="standard"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               sx={{ color: "#00B344" }}
             />
             <TextField
@@ -140,14 +138,25 @@ export function Connexion({ openConnexion }) {
           <DialogActions>
             <Button
               onClick={handleClickOpenSubscribe}
-              sx={{ textDecoration: "underline", fontSize: "0.75rem", color: "#00B344" }}
+              sx={{
+                textDecoration: "underline",
+                fontSize: "0.75rem",
+                color: "#00B344",
+              }}
             >
               No Account?
             </Button>
           </DialogActions>
           <DialogActions>
-            <Button onClick={handleClickCloseConnexion} sx={{ color: "#00B344" }}>Cancel</Button>
-            <Button onClick={handleConnexion} sx={{ color: "#00B344" }}>Connect</Button>
+            <Button
+              onClick={handleClickCloseConnexion}
+              sx={{ color: "#00B344" }}
+            >
+              Cancel
+            </Button>
+            <Button onClick={handleConnexion} sx={{ color: "#00B344" }}>
+              Connect
+            </Button>
           </DialogActions>
         </div>
       </Dialog>
@@ -155,7 +164,7 @@ export function Connexion({ openConnexion }) {
         <div class="connexion">
           <DialogTitle>Subscription</DialogTitle>
           <DialogContent sx={{ bgcolor: "#fff" }}>
-            <DialogContentText sx={{paddingTop: "1.2rem"}}>
+            <DialogContentText sx={{ paddingTop: "1.2rem" }}>
               Enter your new account information here.
             </DialogContentText>
             <TextField
@@ -194,17 +203,17 @@ export function Connexion({ openConnexion }) {
               fullWidth
               variant="standard"
             />
-              <TextField
-                autoFocus
-                margin="dense"
-                id="emailSub"
-                label="Email Address"
-                type="email"
-                fullWidth
-                variant="standard"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="emailSub"
+              label="Email Address"
+              type="email"
+              fullWidth
+              variant="standard"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <TextField
               autoFocus
               margin="dense"
@@ -226,8 +235,15 @@ export function Connexion({ openConnexion }) {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClickOpenConnexion} sx={{ color: "#00B344" }}>Back</Button>
-            <Button onClick={handleSubscribe} sx={{ color: "#00B344" }}>Subscribe</Button>
+            <Button
+              onClick={handleClickOpenConnexion}
+              sx={{ color: "#00B344" }}
+            >
+              Back
+            </Button>
+            <Button onClick={handleSubscribe} sx={{ color: "#00B344" }}>
+              Subscribe
+            </Button>
           </DialogActions>
         </div>
       </Dialog>

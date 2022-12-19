@@ -78,6 +78,7 @@ export function MenuBoycott({ boycott, boycottId, reported, reports }) {
       .then((res) => {
         console.log(res);
         toast.success("Boycott Deleted");
+        window.location.reload();
       })
       .catch((error) => {
         toast.error("Boycott Not Deleted");
@@ -105,7 +106,7 @@ export function MenuBoycott({ boycott, boycottId, reported, reports }) {
         onClose={handleClose}
       >
         {admin && reported ? (
-          <MenuItem sx={{color: "red", cursor: "default"}}>{reports} report(s)</MenuItem>
+          <MenuItem sx={{color: "red", cursor: "default"}}>{reports} report</MenuItem>
         ) : null}
         {admin && reported ? (
           <MenuItem onClick={handleUnreport}>Unreport</MenuItem>

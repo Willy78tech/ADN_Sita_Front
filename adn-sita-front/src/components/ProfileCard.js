@@ -8,6 +8,7 @@ import "../App.css";
 import Avatar, { genConfig } from "react-nice-avatar";
 /* import avatar from "../images/image-rita.png"; */
 import avatar from "../images/boycott.jpeg";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export function ProfileCard() {
   const config = genConfig({ sexRandom: "man, woman", hairStyle: "mohawk" });
@@ -70,7 +71,7 @@ export function ProfileCard() {
           },
         })
         .then((res) => {
-        //   console.log(res.data.boycotts);
+          //   console.log(res.data.boycotts);
           setFollowed(res.data.boycotts);
         });
     }
@@ -104,13 +105,34 @@ export function ProfileCard() {
         }}
       >
         <div className="card-container">
+        <button className="delete" onClick={handleDelete}>
+          <DeleteIcon></DeleteIcon>
+        </button>
           <header class="header_profile">
             <img class="image_profile" src={avatar} alt="photo de profile" />
           </header>
-          <h1 className="bold-text">{user.pseudo}</h1>
-          <h2 className="normal-text">{user.quote}</h2>
-          <h2 className="normal-text">{user.city}</h2>
-          <h2 className="normal-text">{user.country}</h2>
+          <h1
+            className="bold-text"
+            style={{ color: "#00b344", fontSize: "3rem" }}
+          >
+            {user.pseudo}
+          </h1>
+          <h2
+            className="normal-text"
+            style={{ color: "#fff", fontSize: "1.5rem" }}
+          >
+            {user.quote}
+          </h2>
+          <div class="city-country">
+            <div class="city">
+              <p>City</p>
+              <h2 style={{ color: "#fff" }}>{user.city}</h2>
+            </div>
+            <div class="country">
+              <p>Country</p>
+              <h2 style={{ color: "#fff" }}>{user.country}</h2>
+            </div>
+          </div>
           <div className="social-container">
             <div className="boycotts">
               <h1>{boycott.length}</h1>
@@ -121,9 +143,6 @@ export function ProfileCard() {
               <h2 className="smaller-text">Follow(s)</h2>
             </div>
             <div className="deleteprofile">
-              <button className="delete" onClick={handleDelete}>
-                Delete
-              </button>
             </div>
           </div>
         </div>
