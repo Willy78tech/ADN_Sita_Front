@@ -105,7 +105,7 @@ export function MenuBoycott({ boycott, boycottId, reported, reports }) {
         onClose={handleClose}
       >
         {admin && reported ? (
-          <MenuItem sx={{color: "red", cursor: "default"}}>{reports} report</MenuItem>
+          <MenuItem sx={{color: "red", cursor: "default"}}>{reports} report(s)</MenuItem>
         ) : null}
         {admin && reported ? (
           <MenuItem onClick={handleUnreport}>Unreport</MenuItem>
