@@ -1,19 +1,27 @@
 import React from "react";
-import { IconButton } from "@mui/material";
+import axios from "axios";
+import toast from "react-hot-toast";
 import { Boycott } from "./Boycott";
 import { Home } from "./Home";
-import toast from "react-hot-toast";
-import axios from "axios";
+import { IconButton } from "@mui/material";
 
-export function LikeBoycott(boycottId) {
+export function LikeBoycott({ boycott }) {
   const [participation, setParticipation] = React.useState(false);
 
-
+  React.useEffect(() => {
+    for (let i = 0; i < boycott.followers.length; i++) {
+      if (boycott.followers[i] == sessionStorage.getItem("userId")) {
+        setParticipation(true)
+      } else {
+        setParticipation(false)
+      }
+    }
+  }, [boycott])
 
   function handleClick() {
     if (participation) {
       axios
-        .post("/unfollow-boycott/" + boycottId, {
+        .post("/unfollow-boycott/" + boycott._id, {}, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
@@ -28,7 +36,7 @@ export function LikeBoycott(boycottId) {
         });
     } else {
       axios
-        .post("/follow-boycott/" + sessionStorage.getItem({ boycottId }), {
+        .post("/follow-boycott/" + boycott._id, {}, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
@@ -53,4 +61,4 @@ export function LikeBoycott(boycottId) {
       </IconButton>
     </>
   );
-};
+}

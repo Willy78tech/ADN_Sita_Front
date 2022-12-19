@@ -12,7 +12,7 @@ export function Admin() {
   const navigate = useNavigate();
   const [boycotts, setBoycotts] = React.useState([]);
   const [admin, setAdmin] = React.useState(true);
-  const [allUsers, setAllUsers] = React.useState([]);
+  // const [allUsers, setAllUsers] = React.useState([]); // ca sert a quoi???
   const [users, setUsers] = React.useState([]);
   const [allBoycotts, setTotalBoycotts] = React.useState([]);
 
@@ -36,7 +36,7 @@ export function Admin() {
       } catch (error) {
         toast.error("Search Error");
       }
-      setAllUsers(userDatas);
+      // setAllUsers(userDatas); // ca sert a quoi???
       setUsers(userDatas);
 
     })();

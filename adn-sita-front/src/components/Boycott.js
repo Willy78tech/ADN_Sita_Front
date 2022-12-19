@@ -38,8 +38,6 @@ const SubHeader = styled(Card)(({ theme }) => ({
 
 export function Boycott({ boycott }) {
   const [expanded, setExpanded] = React.useState(false);
-  const [reports, setReports] = React.useState([]);
-
 
   const date = new Date(boycott.createdAt);
   const formattedDate = format(date, "dd/MM/yyyy HH:mm");
@@ -48,20 +46,18 @@ export function Boycott({ boycott }) {
     setExpanded(!expanded);
   };
 
-
-
   return (
     <Card
       sx={{ width: "40vw", bgcolor: "#1e1e1e", color: "#ffffff", mb: "5vh" }}
     >
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: "#00b440" }} aria-label="recipe" />}
-
         action={
           <MenuBoycott
             boycott={boycott}
             boycottId={boycott._id}
             reported={boycott.isReport}
+            reports={boycott.reports.length}
           />
         }
         title={boycott.title}
@@ -83,7 +79,7 @@ export function Boycott({ boycott }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <LikeBoycott />
+        <LikeBoycott boycott={boycott}/>
         <IconButton aria-label="share">
           <ShareIcon sx={{ color: "white" }} />
         </IconButton>
@@ -101,7 +97,9 @@ export function Boycott({ boycott }) {
           <Typography paragraph sx={{ color: "white" }}>
             {boycott.description}
           </Typography>
-          {sessionStorage.getItem("token") ? <Comment boycott={boycott} /> : null}
+          {sessionStorage.getItem("token") ? (
+            <Comment boycott={boycott} />
+          ) : null}
         </CardContent>
       </Collapse>
     </Card>
