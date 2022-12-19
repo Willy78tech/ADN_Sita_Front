@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useReducer} from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { TextField, Box, Button, Typography } from "@mui/material";
 
 export function Comment({ boycott }) {
   const [comments, setComments] = React.useState([]);
+  const [reducerValue, forceUpdate] = useReducer(x => x + 1, 0)
 
   React.useEffect(() => {
     axios
@@ -21,7 +22,7 @@ export function Comment({ boycott }) {
       .catch((error) => {
         toast.error("Comment Loading Error");
       });
-  }, []);
+  }, [reducerValue, boycott._id]);
 
   function handleClick() {
     axios
@@ -39,6 +40,8 @@ export function Comment({ boycott }) {
       .then((res) => {
         console.log(res);
         toast.success("Comments Added");
+        forceUpdate();
+        document.getElementById("commentInput").value = null;
       })
       .catch((error) => {
         toast.error("Comment Adding Error");
@@ -57,10 +60,11 @@ export function Comment({ boycott }) {
       )
       .then((res) => {
         console.log(res);
-        toast.success("Comments Added");
+        toast.success("Comment deleted");
+        forceUpdate();
       })
       .catch((error) => {
-        toast.error("Comment Adding Error");
+        toast.error("Comment deleting Error");
       });
   }
 
