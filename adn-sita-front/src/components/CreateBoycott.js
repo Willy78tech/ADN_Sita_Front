@@ -20,25 +20,7 @@ export function CreateBoycott() {
     }
   }, []);
 
-  const sendWebhook = async (url, data) => {
-    const form = new FormData();
-    form.append("title", title);
-    form.append("summary", summary);
-    form.append("description", description);
-    form.append("file", file);
-    form.append("payload_json", JSON.stringify(data));
-    await axios.post(url, form);
-  };
-
   function handleSubmit() {
-    const sendWebhook = async (url, data) => {
-      const form = new FormData();
-      form.append("title", title);
-      form.append("description", description);
-      form.append("file", file);
-      form.append("payload_json", JSON.stringify(data));
-      await axios.post(url, form);
-    };
     let formData = new FormData();
 
     formData.append("title", title);
@@ -60,15 +42,6 @@ export function CreateBoycott() {
       .catch((error) => {
         toast.error("Boycott Creation Error");
       });
-
-    sendWebhook(
-      "https://discord.com/api/webhooks/1053935325837262888/N6qxbJF2ajxfo7mnlzLX3ba5Fy2Q-T-UyxFee_Fsh9YNILuPzv94-DdDIlAfrGOvpw40",
-      {
-        username: "Le boycott BOT",
-        content: "\nNEW BOYCOTT CREATED!\n\n " + title.toUpperCase() + "\n" + description
-        
-      }
-    );
   }
 
   function handleTitle(e) {
@@ -164,10 +137,7 @@ export function CreateBoycott() {
             />
           </div>
           <div class="boycott-input">
-            <label for="inputTag">
-              Select Image
-            <input type="file" id="inputTag" onChange={handleFile} style={{display:"none"}} />
-            </label>
+            <input type="file" onChange={handleFile} />
           </div>
           <Button onClick={handleSubmit} class="publish-btn">
             Publish
