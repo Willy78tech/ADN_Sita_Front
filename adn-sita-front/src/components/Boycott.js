@@ -56,7 +56,7 @@ export function Boycott({ boycott }) {
           <MenuBoycott
             boycott={boycott}
             boycottId={boycott._id}
-            reported={boycott.isReport}
+
             reports={boycott.reports.length}
           />
         }

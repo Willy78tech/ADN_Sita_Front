@@ -65,8 +65,7 @@ export function Users() {
   const [users, setUsers] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [user, setUser] = useState([]);
-  const [reducerValue, forceUpdate] = useReducer(x => x + 1, 0)
-
+  
   useEffect(() => {
     if (!sessionStorage.getItem("token")) {
       navigate(-1);
@@ -126,12 +125,9 @@ export function Users() {
         `${users.pseudo} ${users.city} ${users.country}`
           .toLowerCase()
           .includes(value.toLowerCase())
-          
-      )
+      ),
     );
-    forceUpdate();
-    setAllUsers(filteredUsers);
-    
+    setAllUsers(filteredUsers); 
   }
 
 
@@ -146,7 +142,7 @@ export function Users() {
             <StyledInputBase
               id="input"
               placeholder="Search…"
-              onChange={filterCards}
+              onInput={filterCards}
             />
           </SearchBox>
         </Box>

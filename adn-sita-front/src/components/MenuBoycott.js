@@ -4,10 +4,11 @@ import toast from "react-hot-toast";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-export function MenuBoycott({ boycott, boycottId, reported, reports }) {
+export function MenuBoycott({ boycott, boycottId, reports }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [admin, setAdmin] = React.useState(false);
   const [creator, setCreator] = React.useState(boycott.userId._id == sessionStorage.getItem("userId") ? true : false);
+  const [reported, setReported] = React.useState(boycott.reports.includes(sessionStorage.getItem("userId")) ? true : false);
 
 
   React.useEffect(() => {
@@ -50,6 +51,7 @@ export function MenuBoycott({ boycott, boycottId, reported, reports }) {
       .catch((error) => {
         toast.error("Boycott Not Reported");
       });
+      window.location.reload();
   }
 
   function handleUnreport() {
@@ -66,6 +68,7 @@ export function MenuBoycott({ boycott, boycottId, reported, reports }) {
       .catch((error) => {
         toast.error("Boycott Not Unreported");
       });
+      window.location.reload();
   }
 
   function handleDelete() {
@@ -83,6 +86,7 @@ export function MenuBoycott({ boycott, boycottId, reported, reports }) {
       .catch((error) => {
         toast.error("Boycott Not Deleted");
       });
+      window.location.reload();
   }
   console.log(handleReport.length)
   return (
@@ -105,10 +109,10 @@ export function MenuBoycott({ boycott, boycottId, reported, reports }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {admin && reported ? (
+        {admin && boycott.isReport ? (
           <MenuItem sx={{color: "red", cursor: "default"}}>{reports} report</MenuItem>
         ) : null}
-        {admin && reported ? (
+        {admin && boycott.isReport ? (
           <MenuItem onClick={handleUnreport}>Unreport</MenuItem>
         ) : null}
         {admin || creator ? (
