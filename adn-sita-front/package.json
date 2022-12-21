@@ -2,7 +2,7 @@
   "name": "adn-sita-front",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.io/Willy78tech/ADN_Sita_Front/",
+  "homepage": "https://Willy78tech.github.io/ADN_Sita_Front/",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
