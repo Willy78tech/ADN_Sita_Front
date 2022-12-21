@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Willy78tech/ADN_Sita_Front/static/css/main.2fd2c259.css",
+    "main.js": "/Willy78tech/ADN_Sita_Front/static/js/main.84405a99.js",
+    "static/media/boycott.jpeg": "/Willy78tech/ADN_Sita_Front/static/media/boycott.e4eb54468ae3cf498f3e.jpeg",
+    "index.html": "/Willy78tech/ADN_Sita_Front/index.html",
+    "main.2fd2c259.css.map": "/Willy78tech/ADN_Sita_Front/static/css/main.2fd2c259.css.map",
+    "main.84405a99.js.map": "/Willy78tech/ADN_Sita_Front/static/js/main.84405a99.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2fd2c259.css",
+    "static/js/main.84405a99.js"
+  ]
+}
