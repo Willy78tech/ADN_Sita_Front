@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/Willy78tech/ADN_Sita_Front/static/css/main.2fd2c259.css",
-    "main.js": "/Willy78tech/ADN_Sita_Front/static/js/main.84405a99.js",
-    "static/media/boycott.jpeg": "/Willy78tech/ADN_Sita_Front/static/media/boycott.e4eb54468ae3cf498f3e.jpeg",
-    "index.html": "/Willy78tech/ADN_Sita_Front/index.html",
-    "main.2fd2c259.css.map": "/Willy78tech/ADN_Sita_Front/static/css/main.2fd2c259.css.map",
-    "main.84405a99.js.map": "/Willy78tech/ADN_Sita_Front/static/js/main.84405a99.js.map"
+    "main.css": "/ADN_Sita_Front/static/css/main.2fd2c259.css",
+    "main.js": "/ADN_Sita_Front/static/js/main.db67fe2d.js",
+    "static/media/boycott.jpeg": "/ADN_Sita_Front/static/media/boycott.e4eb54468ae3cf498f3e.jpeg",
+    "index.html": "/ADN_Sita_Front/index.html",
+    "main.2fd2c259.css.map": "/ADN_Sita_Front/static/css/main.2fd2c259.css.map",
+    "main.db67fe2d.js.map": "/ADN_Sita_Front/static/js/main.db67fe2d.js.map"
   },
   "entrypoints": [
     "static/css/main.2fd2c259.css",
-    "static/js/main.84405a99.js"
+    "static/js/main.db67fe2d.js"
   ]
 }
