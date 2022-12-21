@@ -6,6 +6,11 @@ body {
   background: #474747;
   float: left;
   width: 100%;
+  
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .card {
@@ -172,24 +177,33 @@ body {
 .boycott-label {
 	margin-top: 6rem;
 	align-self: center;
-	
 }
 
 .boycott-input {
-	
-	margin-top: 4rem;
-	margin-left: 5rem;
-	align-self: center;
-	
-}
-
-.publish-btn {
+	display: flex;
+  justify-content: center;
 	width: 50%;
 	align-self: center;
 	background-color: #474747;
 	color: #00B344;
 	font-weight: bold;
-	margin-top: 3rem
+	margin-top: 3rem;
+  cursor: pointer;
+}
+
+.boycott-input label{
+  cursor:pointer
+}
+
+.publish-btn {
+	width: 36%;
+	align-self: center;
+	background-color: #474747;
+	color: #00B344;
+	font-weight: bold;
+	margin-top: 3rem;
+  cursor:pointer;
+  box-shadow: rgba(0, 179, 68, 0.50) 0px 54px 55px, rgba(0, 179, 68, 0.24) 0px -12px 30px, rgba(0, 179, 68, 0.24) 0px 4px 6px, rgba(0, 179, 68, 0.27) 0px 12px 13px, rgba(0, 179, 68, 0.18) 0px -3px 5px;
 }
 
 input {
